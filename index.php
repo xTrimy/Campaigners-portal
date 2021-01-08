@@ -36,6 +36,11 @@
         text-align: center;
         font-family:'Playfair Display';
       }
+
+      .title h1 {
+        letter-spacing: 4px;
+      }
+
       #sidebar .title img{
         width:40px;
       }
@@ -151,6 +156,42 @@
         text-align: center;
       }
 
+      .binput {
+        width: 80%;
+        height: 50px;
+        outline: none;
+        border: 3px solid #28572a;
+        padding: 5px 10px;
+        border-radius: 25px;
+        transition: .7s all;
+        font-size: 18px;
+      }
+
+      .binput:focus {
+        border-radius: 5px;
+      }
+
+      .group-input {
+        margin-bottom: 20px;
+      }
+
+      .group-input p {
+        padding-left: 10px;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .fl-1 {
+        flex: 1;
+      }
+
+      .binput.invalid {
+        border: 3px solid red !important;
+        box-shadow: 0 0 4px 0 rgba(236, 9, 9, 0.08), 0 2px 4px 0 rgba(230, 12, 12, 0.12);
+      }
+
     </style>
   </head>
   <body>
@@ -254,6 +295,34 @@
             </div>
           </div>
           <!-- Table END -->
+
+          <div class="row">
+            <div class="item">
+              <h1>Form</h1>
+              <div class="form">
+                <form action="index.php" method="POST">
+                <div class="flex">
+                <div class="group-input fl-1">
+                  <p>Text Input :</p>
+                  <input type="text" class="binput" name="name" placeholder="Enter Your Name">
+                </div>
+                <div class="group-input fl-1">
+                  <p>Invalid Text Input :</p>
+                  <input type="text" class="binput invalid" name="name" placeholder="Enter Your Name">
+                </div>
+                </div>
+                <div class="group-input">
+                  <p>Select :</p>
+                  <!-- <input type="email" class="binput" name="email" placeholder="Enter Your E-Mail"> -->
+                  <select name="select" id="select" class="binput">
+                    <option value="" selected disabled>Please Select From The Following</option>
+                    <option value="">Option 1</option>
+                  </select>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
       </div>
     </div>
