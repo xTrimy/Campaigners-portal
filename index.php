@@ -243,10 +243,15 @@
           </div>
         </div>
       </div>
+
+      <?php
+      include('includes/head.php');
+      include('includes/header.php'); ?>
       <div id="main-body">
         <div class="page-title">
-          Page Title
+          Welcome, {{username}}
         </div>
+        <p>It seems like it's your first time here! Watch the tutorial for the all-new Campaigners portal <a href="#">here</a></p>
         <div class="cards">
           <div class="row">
             <div class="item">
@@ -258,7 +263,7 @@
             <div class="item">
               <h1>"Committee" members</h1>
               <div class="table-container">
-                <table>
+                <table class="table">
                   <tr>
                     <th>#</th>
                     <th>Name</th>
@@ -291,7 +296,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="xbutton">View All</div>
+              <div class="xbutton secondary">View All</div>
             </div>
           </div>
           <!-- Table END -->
@@ -324,8 +329,12 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="item">
+              <h1>Pop Up</h1>
+              <div class="xbutton">Pop Up</div>
+            </div>
+          </div>
       </div>
     </div>
-
-  </body>
-</html>
+<?php include('includes/footer.php') ?>
