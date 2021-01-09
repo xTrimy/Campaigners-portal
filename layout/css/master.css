@@ -620,7 +620,7 @@ body {
         background: #eee;
       }
 
-      #main-body .cards .row .item table tr:nth-of-type(2) {
+      #main-body .cards .row .item table tr:nth-of-type(2n) {
         background: #bbb;
       }
 
