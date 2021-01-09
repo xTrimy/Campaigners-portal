@@ -73,7 +73,6 @@
                 </div>
                 <div class="group-input">
                   <p>Select :</p>
-                  <!-- <input type="email" class="binput" name="email" placeholder="Enter Your E-Mail"> -->
                   <select name="select" id="select" class="binput">
                     <option value="" selected disabled>Please Select From The Following</option>
                     <option value="">Option 1</option>

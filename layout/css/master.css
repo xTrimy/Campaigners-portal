@@ -587,7 +587,7 @@ body {
         flex-wrap: wrap;
       }
 
-      #main-body .cards .row .item {
+      #main-body .cards .row>.item {
         flex: 1;
         min-width: 300px;
         margin-right: 20px;
