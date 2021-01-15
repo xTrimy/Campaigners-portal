@@ -1,5 +1,6 @@
 
       <?php
+      include('classes/DB.php');
       include('includes/head.php');
       include('includes/header.php'); ?>
       <div id="main-body">
@@ -11,40 +12,30 @@
             <div class="item">
               <h1>Our Committees</h1>
               <div class="table-container">
+
+              <?php
+                $items = DB::query('SELECT * FROM committees');
+              ?>
+
                 <table class="table">
                   <tr>
                     <th>#</th>
                     <th>Name</th>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Coaching</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Coordination</td>
-                  </tr>
-                     <tr>
-                    <td>3</td>
-                    <td>Fundraising</td>
-                  </tr>
-                     <tr>
-                    <td>4</td>
-                    <td>Headmaster</td>
-                  </tr>
-                     <tr>
-                    <td>5</td>
-                    <td>Media</td>
-                  </tr>
-                     <tr>
-                    <td>6</td>
-                    <td>Personnel</td>
-                  </tr>
-                     <tr>
-                    <td>7</td>
-                    <td>Public Relations</td>
-                  </tr>
+
+                  <?php
+                    $i = 0;
+                    foreach($items as $item){
+                      ?>
+                      <tr>
+                        <td><?php echo ++$i; ?></td>
+                        <td><?php echo $item['name'] ?></td>
+                      </tr>
+                      <?php
+                    }
+                  ?>
                 </table>
               </div>
             </div>
           </div>
+  <?php include('includes/footer.php') ?>
