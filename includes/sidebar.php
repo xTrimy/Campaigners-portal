@@ -54,6 +54,10 @@
        <i class="far fa-envelope"></i>
       Mail
     </div>
+       <div class="item">
+      <a href="committees.php"> <i class="fas fa-chart-pie"></i>
+      Committees </a>
+    </div>
     <div class="item">
        <i class="fas fa-door-open"></i>
       Logout
