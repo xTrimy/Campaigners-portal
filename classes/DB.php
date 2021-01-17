@@ -21,18 +21,5 @@ class DB
            }
 
         } 
-
-        //View Tasks
-    public static function gettasks($params = array())
-    {
-
-        $tasks = DB::query('SELECT email, description, startdate, deadline FROM tasks ');
-               foreach($tasks as $task){
-          echo "<tr><td>".$task["email"] ."</td><td>".$task["description"]."</td><td>".$task["startdate"]."</td><td>".$task["deadline"]."<br>";
-       }
-           
-
-        } 
-    }
-
+}
 ?>

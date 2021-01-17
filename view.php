@@ -2,11 +2,7 @@
 include('includes/head.php');
 include('includes/header.php');
 include('classes/DB.php');
-
-
-
-
- ?>
+?>
 
  <div id="main-body">
  
@@ -14,12 +10,13 @@ include('classes/DB.php');
           <div class="row">
             <div class="item">
             <h1>Scheduled Tasks</h1>
-
-       <?php 
-
-           echo"<table><th>Task</th><th>Description</th><th>Start Date</th><th>Deadline</th>";     
-           DB::gettasks($params = array());
- ?>
+        <table><th>Task</th><th>Description</th><th>Start Date</th><th>Deadline</th>   
+         <?php 
+           $tasks = DB::query('SELECT name, description, start_date, deadline FROM tasks ');
+           foreach($tasks as $task){
+             echo "<tr><td>".$task["name"] ."</td><td>".$task["description"]."</td><td>".$task["start_date"]."</td><td>".$task["deadline"]."<br>";
+            }
+          ?>
 
             </div>
           </div>
