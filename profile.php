@@ -13,7 +13,6 @@ $member = DB::query('SELECT *, m.name as name, c.name as cname
                      FROM members m,committees c
                      WHERE m.id=:id AND m.committee_id = c.id',
                      array(':id'=>$member_id))[0];
-
  ?>
  <div id="main-body">
    <div class="cards">
