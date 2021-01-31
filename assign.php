@@ -1,7 +1,7 @@
 <?php
+include('classes/start.php');
 include('includes/head.php');
 include('includes/header.php');
-include('classes/DB.php');
 
 //check if user submited the form
 if(isset($_POST['submit'])){

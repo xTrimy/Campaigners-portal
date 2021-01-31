@@ -1,10 +1,9 @@
 <?php
-      include('classes/DB.php'); // -- Include Database File --
+      include('includes/start.php');
       include('includes/head.php');
       include('includes/header.php'); ?>
-
 <?php
-$results = DB::query('SELECT *,m.name as name, c.name as cname FROM members m,committees c WHERE m.committee_id=c.id'); // -- Select member's committee name --
+$results = DB::query('SELECT *,m.name as name, c.name as cname FROM members m,committees c WHERE m.committee_id=c.id');
 
 ?>
 

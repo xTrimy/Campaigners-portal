@@ -1,5 +1,5 @@
-
       <?php
+      include('includes/start.php');
       include('includes/head.php');
       include('includes/header.php'); ?>
       <div id="main-body">
