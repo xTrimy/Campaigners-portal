@@ -9,7 +9,7 @@ if(!isset($_GET['id'])){
 $member_id = $_GET['id'];
 
 //Fetching member's data + there committee's name
-$member = DB::query('SELECT *, m.img as img, m.name as name, c.name as cname 
+$member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname 
                      FROM members m,committees c
                      WHERE m.id=:id AND m.committee_id = c.id',
                      array(':id'=>$member_id))[0];
@@ -21,7 +21,7 @@ $member = DB::query('SELECT *, m.img as img, m.name as name, c.name as cname
          <div class="profile">
            <div class="profile-image-container">
              <div class="profile-image">
-               <img src="layout/png/<?php echo $member['img'] ?>.png" alt=""> 
+               <img src="layout/png/<?php echo $member['img'] ?>" alt=""> 
              </div>
            </div>
            <h2><?php echo $member['name'] ?> 
