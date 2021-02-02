@@ -1,9 +1,8 @@
 <?php
+include('classes/start.php');
 include('includes/head.php');
 include('includes/header.php');
-include('classes/DB.php');
 ?>
-
  <div id="main-body">
  
         <div class="cards">
@@ -17,11 +16,9 @@ include('classes/DB.php');
              echo "<tr><td>".$task["name"] ."</td><td>".$task["description"]."</td><td>".$task["start_date"]."</td><td>".$task["deadline"]."<br>";
             }
           ?>
-
             </div>
           </div>
         </div>
-
  </div>
  <?php include('includes/footer.php') ?>
   
