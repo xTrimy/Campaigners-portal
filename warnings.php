@@ -3,9 +3,6 @@ include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
 
-
-
-
 if(!isset($_GET['id'])){
   header('Location: ./');
 }
@@ -19,66 +16,49 @@ $member = DB::query('SELECT *, m.id as member_id, m.image as img, m.name as name
 
 //Adding warn
 if(isset($_POST['addwarn'])){
-
 $name = $member['member_id'];
 $reason = $_POST['reason'];
 $warndate = date('Y-m-d');
-
-
-
   DB::query('INSERT INTO warnings VALUES (\'\', :mr_id, :reason, :warndate)', 
   array(':mr_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
-
-
   echo '<script> alert("Task added successfully!") </script>'; }
-
  ?>
-
-
  <div id="main-body">
    <div class="cards">
      <div class="row">
        <div class="item">
-                    <h1>Add warning</h1>
-                      <form method="post" action="warnings.php?id=<?php echo $member['member_id'] ?>">
-         <table class="data-table">
-           <tr>
-             <td><b>Name</b></td>
-             <td><?php echo $member['name'] ?> </td>
-           </tr>
-           <tr>
-             <td><b>ID</b></td>
-             <td><?php echo $member['university_id'] ?> </td>
-           </tr>
-           <tr>
-             <td><b>Email</b></td>
-             <td><?php echo $member['email'] ?> </td>
-           </tr>
-           <tr>
-             <td><b>Phone</b></td>
-             <td><?php echo $member['phone'] ?></td>
-           </tr>
-           <tr>
-             <td><b>Committee</b></td>
-             <td><?php echo $member['cname'] ?> </td>
-           </tr>
-         </table>
-                        <p><b>Warning reason :</b></p> 
-                              <input type="text"  class="binput" name="reason" required>  <br>
-                                                      <button type="submit" name="addwarn" class="xbutton">Add warn</button>
-  
-
-                      </form>
+            <h1>Add warning</h1>
+            <table class="data-table">
+              <tr>
+                <td><b>Name</b></td>
+                <td><?php echo $member['name'] ?> </td>
+              </tr>
+              <tr>
+                <td><b>ID</b></td>
+                <td><?php echo $member['university_id'] ?> </td>
+              </tr>
+              <tr>
+                <td><b>Email</b></td>
+                <td><?php echo $member['email'] ?> </td>
+              </tr>
+              <tr>
+                <td><b>Phone</b></td>
+                <td><?php echo $member['phone'] ?></td>
+              </tr>
+              <tr>
+                <td><b>Committee</b></td>
+                <td><?php echo $member['cname'] ?> </td>
+              </tr>
+            </table>
+          <form method="post" action="warnings.php?id=<?php echo $member['member_id'] ?>">
+            <p><b>Warning reason :</b></p> 
+            <textarea name="" id="" required class="binput" name="reason"></textarea><br>
+            <button type="submit" name="addwarn" class="xbutton">Add warn</button>
+          </form>
          </div>
        </div>
     </div>
  </div>
-
-
-
-
-
-
 
  <?php include('includes/footer.php') ?>
   
