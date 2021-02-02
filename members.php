@@ -3,7 +3,8 @@
       include('includes/head.php');
       include('includes/header.php'); ?>
 <?php
-$results = DB::query('SELECT *,m.name as name, c.name as cname FROM members m,committees c WHERE m.committee_id=c.id');
+
+$results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname FROM members m,committees c WHERE m.committee_id=c.id');
 
 ?>
 
@@ -28,15 +29,28 @@ $results = DB::query('SELECT *,m.name as name, c.name as cname FROM members m,co
                     <th>Warn</th>
                   </tr>
                   <?php  foreach($results as $item){ ?>
+
                   <tr>
-                    <td>1</td>
+                    <td><?php echo $item['memberid']; ?></td>
                     <td><?php echo $item['name']; ?></td>
                     <td><?php echo $item['phone']; ?></td>
                     <td><?php echo $item['email']; ?></td>
                     <td><?php echo $item['id']; ?></td>
                     <td><?php echo $item['cname']; // -- Print member's committee name -- ?></td>
                     <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td>
-                    <td><div class="xbutton red"> <i class="fas fa-exclamation-triangle"></i> </div></td>
+                    <td><div class="xbutton red", button onclick="myFunction()">
+                                            <script>
+                                            function myFunction() {
+                                              var txt;
+                                              if (confirm("Confirm warning member!")) {
+                                                window.location.href = "http://localhost/CAMPGIT/Campaigners-portal/warnings.php?id="+<?php echo $item['memberid'] ?>;
+                                              } else {
+                                                txt = "You pressed Cancel!";
+                                              }
+                                              document.getElementById("demo").innerHTML = txt;
+                                            }
+                                            </script>
+                     <i class="fas fa-exclamation-triangle"></i> </div></td>
                   </tr>
                   <?php
                   }
