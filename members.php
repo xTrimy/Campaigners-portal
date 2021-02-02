@@ -3,7 +3,6 @@
       include('includes/head.php');
       include('includes/header.php'); ?>
 <?php
-
 $results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname FROM members m,committees c WHERE m.committee_id=c.id');
 
 ?>
@@ -38,18 +37,9 @@ $results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname
                     <td><?php echo $item['id']; ?></td>
                     <td><?php echo $item['cname']; // -- Print member's committee name -- ?></td>
                     <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td>
-                    <td><div class="xbutton red", button onclick="myFunction()">
-                                            <script>
-                                            function myFunction() {
-                                              var txt;
-                                              if (confirm("Confirm warning member!")) {
-                                                window.location.href = "http://localhost/CAMPGIT/Campaigners-portal/warnings.php?id="+<?php echo $item['memberid'] ?>;
-                                              } else {
-                                                txt = "You pressed Cancel!";
-                                              }
-                                              document.getElementById("demo").innerHTML = txt;
-                                            }
-                                            </script>
+                    <td><div class="xbutton red", button onclick="myFunction(<?= $item['memberid'] ?>)"
+>
+                                         
                      <i class="fas fa-exclamation-triangle"></i> </div></td>
                   </tr>
                   <?php
@@ -65,4 +55,11 @@ $results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname
           </div>
       </div>
     </div>
+    <script>function myFunction(id) {
+    if (confirm("Confirm warning member!")) {
+        window.location.href = "http://localhost/CAMPGIT/Campaigners-portal/warnings.php?id=" + id;
+    } else {
+        txt = "You pressed Cancel!";
+    }
+}</script>
 <?php include('includes/footer.php') ?>
