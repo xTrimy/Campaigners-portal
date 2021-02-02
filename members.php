@@ -35,7 +35,7 @@ $results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname
                     <td><?php echo $item['name']; ?></td>
                     <td><?php echo $item['phone']; ?></td>
                     <td><?php echo $item['email']; ?></td>
-                    <td><?php echo $item['id']; ?></td>
+                    <td><?php echo $item['university_id']; ?></td>
                     <td><?php echo $item['cname']; // -- Print member's committee name -- ?></td>
                     <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td>
                     <td><div class="xbutton red warningButton" data-id="<?php echo $item['memberid'] ?>">
