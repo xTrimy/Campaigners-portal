@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2021 at 12:48 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.13
+-- Generation Time: Feb 04, 2021 at 07:06 AM
+-- Server version: 10.4.13-MariaDB
+-- PHP Version: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -156,6 +156,27 @@ CREATE TABLE `trainee_login_tokens` (
   `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `warnings`
+--
+
+CREATE TABLE `warnings` (
+  `ID` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `reason` text NOT NULL,
+  `warndate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `warnings`
+--
+
+INSERT INTO `warnings` (`ID`, `member_id`, `reason`, `warndate`) VALUES
+(1, 1, 'Testing', '2021-02-04'),
+(2, 1, '>/!@#$%^&', '2021-02-04');
+
 --
 -- Indexes for dumped tables
 --
@@ -206,6 +227,12 @@ ALTER TABLE `trainee_login_tokens`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `warnings`
+--
+ALTER TABLE `warnings`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -250,6 +277,12 @@ ALTER TABLE `trainees`
 --
 ALTER TABLE `trainee_login_tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `warnings`
+--
+ALTER TABLE `warnings`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
