@@ -16,13 +16,16 @@ $member = DB::query('SELECT *, m.id as member_id, m.image as img, m.name as name
 
 //Adding warn
 if(isset($_POST['addwarn'])){
+
 $name = $member['member_id'];
 $reason = $_POST['reason'];
 $warndate = date('Y-m-d');
-  DB::query('INSERT INTO warnings VALUES (\'\', :mr_id, :reason, :warndate)', 
-  array(':mr_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
-  echo '<script> alert("Task added successfully!") </script>'; }
- ?>
+
+                  DB::query('INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate)', 
+                  array(':member_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
+                    echo '<script> alert("Task added successfully!") </script>'; }
+
+?>
  <div id="main-body">
    <div class="cards">
      <div class="row">
@@ -52,7 +55,7 @@ $warndate = date('Y-m-d');
             </table>
           <form method="post" action="warnings.php?id=<?php echo $member['member_id'] ?>">
             <p><b>Warning reason :</b></p> 
-            <textarea name="" id="" required class="binput" name="reason"></textarea><br>
+            <textarea name="reason" id="reason" required class="binput"></textarea><br>
             <button type="submit" name="addwarn" class="xbutton">Add warn</button>
           </form>
          </div>
