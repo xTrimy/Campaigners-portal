@@ -29,7 +29,6 @@ $results = DB::query('SELECT *,m.id as memberid ,m.name as name, c.name as cname
                     <th>Warn</th>
                   </tr>
                   <?php  foreach($results as $item){ ?>
-
                   <tr>
                     <td><?php echo $item['memberid']; ?></td>
                     <td><?php echo $item['name']; ?></td>

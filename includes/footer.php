@@ -11,6 +11,7 @@
     </div>
   </div>
   <script src="layout/js/popup.js"></script>
+  <script src="layout/js/calendar.js"></script>
   <script src="layout/js/all.js"></script>
 
   </body>

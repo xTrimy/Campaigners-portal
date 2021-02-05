@@ -47,8 +47,8 @@
       My Tasks
     </div>
     <div class="item">
-       <i class="far fa-calendar-alt"></i>
-      Calendar
+    <a href="calendar.php"><i class="far fa-calendar-alt"></i>
+      Calendar</a>
     </div>
     <div class="item">
        <i class="far fa-envelope"></i>

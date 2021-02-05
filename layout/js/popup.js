@@ -1,3 +1,4 @@
+//!Do NOT Edit on this file
 var popup = document.getElementById('pop-up');
   var pop = {
     type: 1, //1 = Warning, 2 = Notice
@@ -29,6 +30,8 @@ var popup = document.getElementById('pop-up');
       popup_header.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Warning';
     }else if(pop['type'] == 2 || pop['type'] == "notice"){
       popup_header.innerHTML = '<i class="fas fa-exclamation-circle"></i> Notice';
+    }else{
+      popup_header.innerHTML = '';
     }
     //Replace Buttons to Remove Event Listener
     var new_button1 = popup_button1.cloneNode(true);

@@ -14,7 +14,7 @@
   var warning_button = document.getElementsByClassName('warningButton');
   for(let i =0; i<warning_button.length;i++){
     var warningButton = warning_button[i];
-    var member_id = warningButton.getAttribute('data-id');
+    let member_id = warningButton.getAttribute('data-id');
     warningButton.addEventListener('click',function(){
         warning_confirmation(member_id);
     });
