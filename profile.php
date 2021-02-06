@@ -1,11 +1,11 @@
 <?php
 include('includes/start.php');
-include('includes/head.php');
-include('includes/header.php');
-
 if(!isset($_GET['id'])){
   header('Location: ./');
 }
+include('includes/head.php');
+include('includes/header.php');
+
 $member_id = $_GET['id'];
 
 //Fetching member's data + there committee's name

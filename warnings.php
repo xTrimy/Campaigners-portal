@@ -17,13 +17,13 @@ $member = DB::query('SELECT *, m.id as member_id, m.image as img, m.name as name
 //Adding warn
 if(isset($_POST['addwarn'])){
 
-$name = $member['member_id'];
-$reason = $_POST['reason'];
-$warndate = date('Y-m-d');
+  $name = $member['member_id'];
+  $reason = $_POST['reason'];
+  $warndate = date('Y-m-d');
 
-                  DB::query('INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate)', 
-                  array(':member_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
-                    echo '<script> alert("Task added successfully!") </script>'; }
+  DB::query('INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate)', 
+  array(':member_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
+    echo '<script> alert("Task added successfully!") </script>'; }
 
 ?>
  <div id="main-body">
