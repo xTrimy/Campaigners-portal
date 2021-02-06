@@ -4,19 +4,16 @@ include('includes/head.php');
 include('includes/header.php');
 
 //check if user submited the form
+$msg="";
 if(isset($_POST['addtask'])){
-
   $name = $_POST['name'];
   $description = $_POST['description'];
   $startdate = $_POST['startdate'];
   $deadline = $_POST['deadline'];
   $committee_id = $_POST['committee'];
-
   DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee)', 
   array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id));
-
-
-  echo '<script> alert("Task added successfully!") </script>'; 
+  $msg="Committee added successfully!";
 }
  ?>
  <div id="main-body">
@@ -25,6 +22,7 @@ if(isset($_POST['addtask'])){
           <div class="row">
             <div class="item">
             <h1>Add Tasks</h1>
+            <div class="success"><?php echo $msg;?></div>
                       <form method="post" action="task.php">
                         <p>Name :</p> 
                               <input type="text" class="binput" name="name" required>  <br>

@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
   $name = $_POST['name'];
   DB::query('INSERT INTO committees VALUES (\'\', :name)', 
   array(':name'=>$name));
-  $msg="School added successfully!";
+  $msg="Committee added successfully!";
 }
  ?>
  <div id="main-body">
