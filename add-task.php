@@ -10,9 +10,10 @@ if(isset($_POST['addtask'])){
   $description = $_POST['description'];
   $startdate = $_POST['startdate'];
   $deadline = $_POST['deadline'];
-  $committee_id = $_POST['committee'];
-  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee)', 
-  array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id));
+  $committee_id = $_POST['committee_id'];
+  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id)', 
+  array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id, ':member_id' =>NULL));
+
   $msg="Committee added successfully!";
 }
  ?>
@@ -23,7 +24,7 @@ if(isset($_POST['addtask'])){
             <div class="item">
             <h1>Add Tasks</h1>
             <div class="success"><?php echo $msg;?></div>
-                      <form method="post" action="task.php">
+                      <form method="post" action="add-task.php">
                         <p>Name :</p> 
                               <input type="text" class="binput" name="name" required>  <br>
                         <p>Task description :</p> 
@@ -33,7 +34,7 @@ if(isset($_POST['addtask'])){
                       <p>Deadline</p>
                               <input type="date" class="binput" min="2021-01-01" max="2021-12-31" name="deadline" required>  <br>
                         <p>Committee</p>
-                        <select class="binput" name="committee" >
+                        <select class="binput" name="committee_id" >
                         <?php
                           $items = DB::query('SELECT * FROM committees');
                         ?>
