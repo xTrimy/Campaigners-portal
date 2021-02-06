@@ -1,41 +1,34 @@
-
-      <?php
-      include('includes/start.php');
-      include('includes/head.php');
-      include('includes/header.php'); ?>
-      <div id="main-body">
+<?php
+include('includes/start.php');
+include('includes/head.php');
+include('includes/header.php');
+?>
+ <div id="main-body">
         <div class="cards">
-            <div class="item">
-              </div>
-              <!-- comment -->
           <div class="row">
             <div class="item">
-              <h1>Our Committees</h1>
-              <div class="table-container">
-
-              <?php
-                $items = DB::query('SELECT * FROM committees');
-              ?>
-
-                <table class="table">
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                  </tr>
-
-                  <?php
-                    $i = 0;
-                    foreach($items as $item){
-                      ?>
-                      <tr>
-                        <td><?php echo ++$i; ?></td>
-                        <td><?php echo $item['name'] ?></td>
-                      </tr>
-                      <?php
-                    }
-                  ?>
-                </table>
-              </div>
+            <h1>Committees</h1>
+        <table class="table">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+         <?php 
+           $items = DB::query('SELECT * FROM committees ');
+           $counter =1;
+           foreach($items as $item){
+             echo "<tr>
+             <td>".$counter."</td>
+             <td>".$item["name"] ."</td>
+             </tr>";
+             $counter++;
+            }
+          ?>
+        </table>
+        <a href="add-committee.php"><div class="xbutton">Add new committee</div></a>
             </div>
           </div>
-  <?php include('includes/footer.php') ?>
+        </div>
+ </div>
+ <?php include('includes/footer.php') ?>
+  

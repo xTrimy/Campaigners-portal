@@ -1,7 +1,7 @@
 <div id="header">
 
     <div class="profile-image">
-      <img src="layout/png/profile.png">
+      <img src="layout/png/<?php echo $user['image']; ?>">
     </div>
 
     <div class="nav">
