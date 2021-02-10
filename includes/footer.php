@@ -10,7 +10,15 @@
       <div class="button2 xbutton blue">No</div>
     </div>
   </div>
+  <div id="alert-boxes-container">
+    <div class='alert-box warning'>
+      <div class="icon"></div>
+      <div class="content"></div>
+      <div class="close-button"></div>
+    </div>
+  </div>
   <script src="layout/js/popup.js"></script>
+  <script src="layout/js/alert-box.js"></script>
   <script src="layout/js/calendar.js"></script>
   <script src="layout/js/all.js"></script>
 

@@ -1,3 +1,4 @@
+  var debugging = 1;
   //Pop Up Window Functions START
   function warning_confirmation(member_id){
     pop['type'] = 1; // The popup type is 1 = "warning", you can also use type = "warning" instead of type = 1
@@ -20,6 +21,7 @@
     });
   }
 
+// Sidebar dropdown arrow START
   var arrows = document.getElementsByClassName('arrow');
   for(let i = 0; i<arrows.length; i++){
     arrows[i].addEventListener('click',function(){
@@ -29,3 +31,53 @@
         this.parentElement.classList.add('open');
     });
   }
+// Sidebar dropdown arrow END
+
+// XMLHTTPRequest functions START
+function send_request(type,url,data,response_function=false){
+  var xhttp = new XMLHttpRequest();
+
+  xhttp.onreadystatechange = function() {
+      if(!this.responseText.length > 0)
+        return;
+      var response = JSON.parse(this.responseText);
+      if (this.readyState == 4 && this.status == 200) {
+        if(debugging)
+          console.log(response);
+        box_alert('success',response['message']);
+        if(response_function){
+          ()=>{
+            response_function();
+          }
+        }
+      }else{
+        if(response['error']){
+          if(debugging)
+          console.log(response);
+          box_alert('warning',response['error']);
+        }
+      }
+  };
+  var params = data;
+  xhttp.open(type, url, true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhttp.send(params);
+}
+// XMLHTTPRequest functions END
+
+// Task finished checkbox START
+function set_task(checkbox){
+  var task_id = checkbox.getAttribute('data-id');
+  var value = checkbox.checked;
+  var data = "id="+task_id+"&value="+value;
+  send_request('POST','functions/set_task_status.php',data);
+}
+
+var finished_checkbox = document.querySelectorAll('.finished-checkbox');
+for(let i =0 ;i<finished_checkbox.length;i++){
+  finished_checkbox[i].addEventListener('click',function(){
+    set_task(this);
+  });
+}
+// Task finished checkbox END

@@ -2,6 +2,8 @@
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
+
+$mytasks=true;
 ?>
  <div id="main-body">
         <div class="cards">
@@ -15,7 +17,14 @@ include('includes/header.php');
             <th>Description</th>
             <th>Start Date</th>
             <th>Deadline</th> 
-            <th>Assigned to</th> 
+            <th>Assigned to</th>
+            <?php
+              if($mytasks){
+                ?>
+            <th>Finished?</th>
+                <?php
+              }
+            ?> 
           </tr> 
          <?php 
           //$tasks = DB::query('SELECT t.*,m.name as mname FROM tasks t LEFT JOIN members m on member_id=m.id');
@@ -25,6 +34,7 @@ include('includes/header.php');
              if(!isset($task['mname']) || $task['mname'] == NULL){
                $task['mname'] = "N/A";
              }
+             $finished = (bool)$task['is_finished'];
              echo "<tr>
              <td>".$counter."</td>
              <td>".$task["name"] ."</td>
@@ -32,6 +42,14 @@ include('includes/header.php');
              <td>".$task["start_date"]."</td>
              <td>".$task["deadline"]."</td>
              <td>".$task["mname"]."</td>
+             <td>
+              ".(($mytasks)?'
+              <label class="checkbox-container">
+                <input class="finished-checkbox" data-id="'.$task['id'].'" type="checkbox" '.(($finished)?"checked":"").'>
+                <span class="checkmark"></span>
+              </label>
+              ':'')."
+             </td>
              </tr>";
              $counter++;
             }
