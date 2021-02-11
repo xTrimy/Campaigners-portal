@@ -48,9 +48,11 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
             }
 
            ?>
+           <?php if($user_id != $member_id){ ?>
            <div data-id="<?php echo $member_id;?>" class="xbutton <?php echo $friend_button_type[$friends]; ?>">
-           <div class="content"></div> </div>
+           <div class="content"></div></div>
            <div class="xbutton secondary blue"><i class="fas fa-envelope"></i> Message </div>
+           <?php } ?>
          </div>
        </div>
 
