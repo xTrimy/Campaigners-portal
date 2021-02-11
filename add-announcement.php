@@ -12,7 +12,7 @@ if(isset($_POST['submit'])){
     $_POST['committee'] = NULL; 
   }
   $committee = $_POST['committee'];
-  DB::query('INSERT INTO announcements VALUES (\'\', :name,:description,:committee)', 
+  DB::query('INSERT INTO announcements VALUES (\'\', :name,:description,:committee,0)', 
   array(':name'=>$name,':description'=>$description,':committee'=>$committee));
   $msg="Announcement added successfully!";
 }

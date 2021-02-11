@@ -21,7 +21,7 @@ if(isset($_POST['addwarn'])){
   $reason = $_POST['reason'];
   $warndate = date('Y-m-d');
 
-  DB::query('INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate)', 
+  DB::query('INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate,0)', 
   array(':member_id'=>$name, ':reason'=>$reason, ':warndate'=>$warndate));
     echo '<script> alert("Task added successfully!") </script>'; }
 

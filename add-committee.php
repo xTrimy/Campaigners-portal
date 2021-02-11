@@ -7,7 +7,7 @@ include('includes/header.php');
 $msg="";
 if(isset($_POST['submit'])){
   $name = $_POST['name'];
-  DB::query('INSERT INTO committees VALUES (\'\', :name)', 
+  DB::query('INSERT INTO committees VALUES (\'\', :name,0)', 
   array(':name'=>$name));
   $msg="Committee added successfully!";
 }

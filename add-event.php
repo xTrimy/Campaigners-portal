@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
     $_POST['committee'] = NULL; 
   }
   $committee = $_POST['committee'];
-  DB::query('INSERT INTO events VALUES (\'\', :name,:description,:start_date,:end_date,:committee)', 
+  DB::query('INSERT INTO events VALUES (\'\', :name,:description,:start_date,:end_date,:committee,0)', 
   array(':name'=>$name,':description'=>$description,':start_date'=>$start_date,':end_date'=>$end_date,':committee'=>$committee));
   $msg="Event added successfully!";
 }

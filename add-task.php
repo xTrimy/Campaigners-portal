@@ -11,7 +11,7 @@ if(isset($_POST['addtask'])){
   $startdate = $_POST['startdate'];
   $deadline = $_POST['deadline'];
   $committee_id = $_POST['committee_id'];
-  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id)', 
+  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id,0)', 
   array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id, ':member_id' =>NULL));
 
   $msg="Committee added successfully!";

@@ -9,7 +9,7 @@ if(isset($_POST['submit'])){
 
   $name = $_POST['name'];
 
-  DB::query('INSERT INTO schools VALUES (\'\', :name)', 
+  DB::query('INSERT INTO schools VALUES (\'\', :name,0)', 
   array(':name'=>$name));
   $msg="School added successfully!";
 }

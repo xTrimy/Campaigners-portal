@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2021 at 05:46 AM
+-- Generation Time: Feb 11, 2021 at 08:06 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -29,56 +29,49 @@ USE `campaigners_portal`;
 --
 -- Table structure for table `announcements`
 --
--- Creation: Feb 06, 2021 at 04:04 AM
--- Last update: Feb 06, 2021 at 04:05 AM
---
 
 DROP TABLE IF EXISTS `announcements`;
 CREATE TABLE `announcements` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` text NOT NULL,
-  `committee_id` int(11) DEFAULT NULL
+  `committee_id` int(11) DEFAULT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `announcements`
 --
 
-INSERT INTO `announcements` (`id`, `name`, `description`, `committee_id`) VALUES
-(1, 'xTrimy', 'sxxxxxxxxxxxx', NULL);
+INSERT INTO `announcements` (`id`, `name`, `description`, `committee_id`, `is_deleted`) VALUES
+(1, 'xTrimy', 'sxxxxxxxxxxxx', NULL, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `committees`
 --
--- Creation: Feb 05, 2021 at 05:44 PM
--- Last update: Feb 05, 2021 at 05:47 PM
---
 
 DROP TABLE IF EXISTS `committees`;
 CREATE TABLE `committees` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `committees`
 --
 
-INSERT INTO `committees` (`id`, `name`) VALUES
-(1, 'Personnel'),
-(2, 'Media'),
-(3, 'Coaching');
+INSERT INTO `committees` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Personnel', 0),
+(2, 'Media', 0),
+(3, 'Coaching', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `events`
---
--- Creation: Feb 06, 2021 at 03:42 AM
--- Last update: Feb 06, 2021 at 03:51 AM
 --
 
 DROP TABLE IF EXISTS `events`;
@@ -88,24 +81,37 @@ CREATE TABLE `events` (
   `description` text NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
-  `committee_id` int(11) DEFAULT NULL
+  `committee_id` int(11) DEFAULT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `events`
 --
 
-INSERT INTO `events` (`id`, `name`, `description`, `start_date`, `end_date`, `committee_id`) VALUES
-(14, 'Test', 'This is an test event', '2021-02-06', '2021-02-06', 3),
-(15, 'xxxxxxxxxx', 'xxxxxxxxxxxxxxxx', '2021-02-06', '2021-02-06', NULL);
+INSERT INTO `events` (`id`, `name`, `description`, `start_date`, `end_date`, `committee_id`, `is_deleted`) VALUES
+(14, 'Test', 'This is an test event', '2021-02-06', '2021-02-06', 3, 0),
+(15, 'xxxxxxxxxx', 'xxxxxxxxxxxxxxxx', '2021-02-06', '2021-02-06', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `friends`
+--
+
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE `friends` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `sent_date` datetime NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `members`
---
--- Creation: Feb 05, 2021 at 05:44 PM
--- Last update: Feb 06, 2021 at 01:04 AM
 --
 
 DROP TABLE IF EXISTS `members`;
@@ -118,94 +124,96 @@ CREATE TABLE `members` (
   `committee_id` int(11) NOT NULL,
   `position_id` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `image` varchar(50) NOT NULL
+  `image` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `email`, `university_id`, `phone`, `committee_id`, `position_id`, `password`, `image`) VALUES
-(1, 'Mohamed Ashraf', 'Mohamed1812470@miuegypt.edu.eg', '2018/12470', '01156052920', 1, 1, '$2y$10$oLvOXXUge2Bhjc5iR6JtcuHFlvm.hnwxOK..Fiz8f/IPyEyPZYWD2', 'profile.png'),
-(2, 'Test user', 'example@example.com', '2018/12471', '01156052921', 2, 1, '123456789', 'test.png');
+INSERT INTO `members` (`id`, `name`, `email`, `university_id`, `phone`, `committee_id`, `position_id`, `password`, `image`, `is_deleted`) VALUES
+(1, 'Mohamed Ashraf', 'Mohamed1812470@miuegypt.edu.eg', '2018/12470', '01156052920', 1, 1, '$2y$10$oLvOXXUge2Bhjc5iR6JtcuHFlvm.hnwxOK..Fiz8f/IPyEyPZYWD2', 'profile.png', 0),
+(2, 'Test user', 'example@example.com', '2018/12471', '01156052921', 2, 1, '123456789', 'test.png', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `member_login_tokens`
 --
--- Creation: Jan 22, 2021 at 01:24 PM
--- Last update: Feb 06, 2021 at 04:16 AM
---
 
 DROP TABLE IF EXISTS `member_login_tokens`;
 CREATE TABLE `member_login_tokens` (
   `id` int(11) NOT NULL,
   `token` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `member_login_tokens`
 --
 
-INSERT INTO `member_login_tokens` (`id`, `token`, `user_id`) VALUES
-(1, '188ab625a536ff8b68351b45725f1ca9dc57de87', 1),
-(2, '408b7d690a4cf45fa45af748a760cb9634be4f0a', 1),
-(6, '8145217b799b9196fcd5eeddb39322d91c06dc04', 1);
+INSERT INTO `member_login_tokens` (`id`, `token`, `user_id`, `is_deleted`) VALUES
+(1, '188ab625a536ff8b68351b45725f1ca9dc57de87', 1, 0),
+(2, '408b7d690a4cf45fa45af748a760cb9634be4f0a', 1, 0),
+(8, '4138a57f5420db230637835d4809177afea34264', 1, 0),
+(10, '4dabcd4142a8222ac480c34d43d91bd7fb4c84ba', 1, 0),
+(12, '071c71e35bfefd9ad39d332bd2ac8fc7bfed0589', 1, 0),
+(14, 'd42cf5b0eeb5469588fcec96945d6e37bcf3b103', 1, 0),
+(16, '28c3aba5bcab90be3fc20e3e4caa1463120763be', 1, 0),
+(18, '4074745a04d7d65f717fe25b083124f065da36b7', 1, 0),
+(20, '4a3192d2c596bba94e2e80151ea9aceb3c70127c', 1, 0),
+(23, 'd765a76392b2c5303d6d11b9f5236f03a0b950e4', 1, 0),
+(24, '0561c816fde5de1b8af7a127cc5b14252a7bf4fa', 1, 0),
+(25, 'c885f9568356453acd43494e580873ac9d66520b', 1, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `positions`
 --
--- Creation: Feb 05, 2021 at 05:44 PM
--- Last update: Feb 05, 2021 at 05:47 PM
---
 
 DROP TABLE IF EXISTS `positions`;
 CREATE TABLE `positions` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `positions`
 --
 
-INSERT INTO `positions` (`id`, `name`) VALUES
-(1, 'Head'),
-(2, 'Co-Head');
+INSERT INTO `positions` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Head', 0),
+(2, 'Co-Head', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `schools`
 --
--- Creation: Feb 06, 2021 at 12:35 AM
--- Last update: Feb 06, 2021 at 12:43 AM
---
 
 DROP TABLE IF EXISTS `schools`;
 CREATE TABLE `schools` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `schools`
 --
 
-INSERT INTO `schools` (`id`, `name`) VALUES
-(1, 'Humanities'),
-(2, 'Psychology');
+INSERT INTO `schools` (`id`, `name`, `is_deleted`) VALUES
+(1, 'Humanities', 0),
+(2, 'Psychology', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `tasks`
---
--- Creation: Feb 06, 2021 at 04:40 AM
 --
 
 DROP TABLE IF EXISTS `tasks`;
@@ -216,23 +224,23 @@ CREATE TABLE `tasks` (
   `start_date` date NOT NULL,
   `deadline` date NOT NULL,
   `committee_id` int(11) NOT NULL,
-  `member_id` int(11) DEFAULT NULL
+  `member_id` int(11) DEFAULT NULL,
+  `is_finished` tinyint(1) NOT NULL DEFAULT 0,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `name`, `description`, `start_date`, `deadline`, `committee_id`, `member_id`) VALUES
-(1, 'ssss', 'ddddddddd', '2021-01-16', '2021-01-22', 1, 1),
-(2, 'xxxx', 'eeeeeeeeee', '2021-01-16', '2021-01-22', 1, NULL);
+INSERT INTO `tasks` (`id`, `name`, `description`, `start_date`, `deadline`, `committee_id`, `member_id`, `is_finished`, `is_deleted`) VALUES
+(1, 'ssss', 'ddddddddd', '2021-01-16', '2021-01-22', 1, 1, 0, 0),
+(2, 'xxxx', 'eeeeeeeeee', '2021-01-16', '2021-01-22', 1, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `trainees`
---
--- Creation: Jan 30, 2021 at 12:26 PM
 --
 
 DROP TABLE IF EXISTS `trainees`;
@@ -243,7 +251,8 @@ CREATE TABLE `trainees` (
   `university_id` varchar(10) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `school_id` int(11) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -251,14 +260,13 @@ CREATE TABLE `trainees` (
 --
 -- Table structure for table `trainee_login_tokens`
 --
--- Creation: Jan 30, 2021 at 12:27 PM
---
 
 DROP TABLE IF EXISTS `trainee_login_tokens`;
 CREATE TABLE `trainee_login_tokens` (
   `id` int(11) NOT NULL,
   `trainee_id` int(11) NOT NULL,
-  `token` varchar(255) NOT NULL
+  `token` varchar(255) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -266,25 +274,24 @@ CREATE TABLE `trainee_login_tokens` (
 --
 -- Table structure for table `warnings`
 --
--- Creation: Feb 04, 2021 at 10:55 PM
---
 
 DROP TABLE IF EXISTS `warnings`;
 CREATE TABLE `warnings` (
   `id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   `reason` text NOT NULL,
-  `warndate` date NOT NULL
+  `warndate` date NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `warnings`
 --
 
-INSERT INTO `warnings` (`id`, `member_id`, `reason`, `warndate`) VALUES
-(1, 1, 'Testing', '2021-02-04'),
-(2, 1, '>/!@#$%^&', '2021-02-04'),
-(3, 1, 'sssssss', '2021-02-06');
+INSERT INTO `warnings` (`id`, `member_id`, `reason`, `warndate`, `is_deleted`) VALUES
+(1, 1, 'Testing', '2021-02-04', 0),
+(2, 1, '>/!@#$%^&', '2021-02-04', 0),
+(3, 1, 'sssssss', '2021-02-06', 0);
 
 --
 -- Indexes for dumped tables
@@ -309,6 +316,12 @@ ALTER TABLE `committees`
 ALTER TABLE `events`
   ADD PRIMARY KEY (`id`),
   ADD KEY `committee_id` (`committee_id`);
+
+--
+-- Indexes for table `friends`
+--
+ALTER TABLE `friends`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `members`
@@ -389,6 +402,12 @@ ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT for table `friends`
+--
+ALTER TABLE `friends`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
@@ -398,7 +417,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `member_login_tokens`
 --
 ALTER TABLE `member_login_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `positions`
