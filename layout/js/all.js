@@ -38,11 +38,11 @@ function send_request(type,url,data,response_function=false){
   var xhttp = new XMLHttpRequest();
 
   xhttp.onreadystatechange = function() {
-      if(!this.responseText.length > 0)
-        return;
+     
+      if (this.readyState == 4) {
       var response = JSON.parse(this.responseText);
-      if (this.readyState == 4 && this.status == 200) {
-        if(debugging)
+        if(this.status == 200){
+          if(debugging)
           console.log(response);
         box_alert('success',response['message']);
         if(response_function){
@@ -50,11 +50,14 @@ function send_request(type,url,data,response_function=false){
             response_function();
           }
         }
-      }else if(this.readyState == 4){
-        if(response['error']){
-          if(debugging)
-          console.log(response);
-          box_alert('warning',response['error']);
+        }else{
+          if(response['error']){
+            if(debugging)
+            console.log(response);
+            box_alert('warning',response['error']);
+          }else{
+            box_alert('warning',xhttp.statusText);
+          }
         }
       }
   };

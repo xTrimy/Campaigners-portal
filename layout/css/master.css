@@ -724,3 +724,64 @@ body {
   right:20px;
 }
 /* Alert Box END */
+
+/* Calendar START */
+
+.calendar-container{
+  width:100%;
+}
+.calendar-container .calendar-head{
+  width:100%;
+  height:130px;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size:25px;
+  padding:20px;
+  background-color: #25922a;
+  color:white;
+  text-align:center;
+}
+.calendar-container .calendar-head .calendar-date{
+  width: 300px;
+}
+.calendar-container .calendar-head a{
+  color:inherit;
+  padding:20px;
+}
+
+.calendar-container .calendar-body{
+  width:100%;
+  display: flex;
+
+}
+.calendar-container .calendar-body table th,.calendar-container .calendar-body table td{
+  text-align:center;
+}
+.calendar-container .calendar-body table td{
+  height:60px;
+  background-color: #fff;
+}
+.calendar-container .calendar-body table td .event-bubble{
+  border-radius:50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding:10px;
+  width: 40px;
+  height:40px;
+}
+
+.calendar-container .calendar-body table td .event-bubble.event{
+  background-color: #33b2d8;
+  color:white;
+}
+.calendar-container .calendar-body table td .event-bubble.today{
+  background-color: #369a15;
+  color:white;
+}
+.calendar-container .calendar-body table td .event-bubble.today.event{
+  background-color: #369a15;
+  border:4px solid #33b2d8;
+}
+/* Calendar END */

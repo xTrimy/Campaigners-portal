@@ -6,50 +6,32 @@ include('includes/header.php');
  <?php
   $days = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
   $Month = date('F');
+  $Month_num = date('m');
   $Year = date('Y');
+  if(isset($_GET['M']) && isset($_GET['Y'])){
+    $Year = $_GET['Y'];
+    $Month = date('F',strtotime("2021-".$_GET['M']."-01"));
+    $Month_num = date('m',strtotime("2021-".$_GET['M']."-01"));
+  }
+  else if(isset($_GET['M'])){
+    $Month = date('F',strtotime("2021-".$_GET['M']."-01"));
+    $Month_num = date('m',strtotime("2021-".$_GET['M']."-01"));
+  }
+
+  $Next_month = $Month_num+1;
+  $Prev_month = $Month_num-1;
+  $Next_year = $Year;
+  $Prev_year = $Year;
+  if($Month_num == 12){
+    $Next_month=01;
+    $Next_year++;
+  }
+  else if($Month_num == 01){
+    $Prev_month=12;
+    $Prev_year--;
+  }
  ?>
  <style>
-  .calendar-container{
-    width:100%;
-  }
-  .calendar-container .calendar-head{
-    width:100%;
-    height:130px;
-    display:flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size:25px;
-    padding:20px;
-    background-color: #25922a;
-    color:white;
-    text-align:center;
-  }
-  .calendar-container .calendar-body{
-    width:100%;
-    display: flex;
-
-  }
-  .calendar-container .calendar-body table th,.calendar-container .calendar-body table td{
-    text-align:center;
-  }
-  .calendar-container .calendar-body table td{
-    height:60px;
-    background-color: #fff;
-  }
-  .calendar-container .calendar-body table td .event{
-    background-color: #33b2d8;
-    color:white;
-    border-radius:50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding:10px;
-    width: 40px;
-    height:40px;
-  }
-  .calendar-container .calendar-body table td .event.today{
-    background-color: #369a15;
-  }
 
  </style>
  <div id="main-body">
@@ -59,12 +41,12 @@ include('includes/header.php');
             <h1>Calender</h1>
             <div class="calendar-container">
               <div class="calendar-head">
-                <i class="fas fa-caret-left"></i>
+                <a href="?M=<?php echo $Prev_month;?>&Y=<?php echo $Prev_year;?>"><i class="fas fa-caret-left"></i></a>
                 <div class="calendar-date">
                   <h1><?php echo $Month;?></h1>
                   <p><?php echo $Year;?></p>
                 </div>
-                <i class="fas fa-caret-right"></i>
+                <a href="?M=<?php echo $Next_month;?>&Y=<?php echo $Next_year;?>"><i class="fas fa-caret-right"></i></a>
               </div>
               <div class="calendar-body">
                 <table>
@@ -82,10 +64,12 @@ include('includes/header.php');
                     <?php
                       $d=0;
                       for($i=1;$i<=6;$i++){
-                        $firstday = date('l',strtotime('01 '.$Month.' '.$Year));
+                        $firstday = date('l',strtotime('01 '.$Month.' '.$Year)); //Get name of the first day of a month
                         ?>
                         <tr>
                           <?php
+                           //Get the first day of the month
+                           //Repeat until month's first day match the first day on the calendar
                           $j=1;
                           if($i==1){
                           foreach($days as $day){
@@ -94,37 +78,41 @@ include('includes/header.php');
                             }
                             $j++;
                           }
+                          //Display empty fields until the first day on the calendar to be the first day of the month
+                          //* Example:
+                          //* Sa Su Mo Tu We Th Fr
+                          //* -  -  -  1  2  3  4
+                          //* Here, the first day of the month is Tuesday
                           for($k=$j;$k>1;$k--){
                             ?>
                               <td></td>
                             <?php
                           }
                         }
-                        for($j;$j<=7;$j++){
+                        for($j;$j<=7;$j++){ //Loop for days of the week
                         $d++;
                         $dd = date('d',strtotime($d.' '.$Month.' '.$Year));
-                        $checkdate = checkdate(date('m',strtotime($Month)),$d,$Year);
-                          if(!$checkdate){
-                            continue;
-                          }
+                        $fulldate = date('Y-m-d',strtotime($dd.' '.$Month.' '.$Year));
+                        //Check if the day exists. For example, February 30 doesn't exist so we make sure the day exists
+                        $checkdate = checkdate(date('m',strtotime($Month)),$d,$Year); 
+                        if(!$checkdate){
+                          continue;
+                        }
                           ?>
                             <td>
                               <?php
-                                if(date('Y-m-d') == date('Y-m-d',strtotime($dd.' '.$Month.' '.$Year))){
-                                  ?>
-                                <div class="event today"><?php echo $dd?></div>
-                                  <?php
-                                }else if($j==2 && $i==3){
-                                  ?>
-                                  <div class="event"><?php echo $dd?></div>
-                                  <?php
+                                $event = "";
+
+                                if(date('Y-m-d') == $fulldate){ //Check if the day matches today's date
+                                  $event .=" today";
                                 }
-                                else{
-                                  ?>
-                                  <?php echo $dd?>
-                                  <?php
+                                $check_event = DB::query('SELECT * FROM events WHERE start_date=:start_date',array(':start_date'=>$fulldate));
+                                if($check_event){
+                                  $event .= " event";
                                 }
+
                               ?>
+                              <div class="event-bubble <?php echo $event;?>"><?php echo $dd?></div>
                             </td>
                           <?php
                         }
