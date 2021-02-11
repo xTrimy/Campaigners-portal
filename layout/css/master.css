@@ -269,11 +269,68 @@ body {
   border: 1px solid #32b4ea;
   color: #32b4ea;
 }
-
 .table .xbutton {
   width: 50px;
   height: 20px;
   text-align: center;
+}
+.add-friend,.accept-friend{
+  background: #b9e2bb;
+  padding: 9px 19px;
+  border: 1px solid #137717;
+  color: #137717;
+}
+
+.add-friend .content::before{
+  content:"\f234";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  margin-right:5px;
+}
+
+.add-friend .content::after{
+  content:"Add Friend";
+  font-weight: 600;
+}
+.accept-friend .content::before{
+  content:"\f234";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  margin-right:5px;
+}
+
+.accept-friend .content::after{
+  content:"Accept Friend";
+  font-weight: 600;
+}
+.cancel-friend,.remove-friend{
+  background: #e8a1a1;
+  border: 1px solid #ea3232;
+  color: #ea3232;
+}
+
+.cancel-friend .content::before{
+  content:"\f506";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  margin-right:5px;
+}
+
+.cancel-friend .content::after{
+  content:"Cancel Request";
+  font-weight: 600;
+}
+
+.remove-friend .content::before{
+  content:"\f503";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  margin-right:5px;
+}
+
+.remove-friend .content::after{
+  content:"Remove Friend";
+  font-weight: 600;
 }
 
 #pop-up {

@@ -33,7 +33,23 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
             <div class="item it">IT Specialist</div>
             <div class="item special">Member of the Year 2019-2020</div>
            </div>
-           <div class="xbutton secondary red"><i class="fas fa-user-minus"></i> Remove Friend </div>
+           <?php
+            $friend_button_type = ["add-friend","remove-friend","cancel-friend","accept-friend"];
+            $friends = 0;
+            $check_friend_request_sent = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id',array(':sender_id'=>$user_id,":receiver_id"=>$member_id));
+            $check_friend_request_received = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id',array(':sender_id'=>$member_id,":receiver_id"=>$user_id));
+            //Check friends
+            if($check_friend_request_sent && $check_friend_request_received){
+              $friends = 1; //Friends
+            }else if($check_friend_request_sent){
+              $friends = 2; //Friend request sent
+            }else if($check_friend_request_received){
+              $friends = 3; //Friend request received
+            }
+
+           ?>
+           <div data-id="<?php echo $member_id;?>" class="xbutton <?php echo $friend_button_type[$friends]; ?>">
+           <div class="content"></div> </div>
            <div class="xbutton secondary blue"><i class="fas fa-envelope"></i> Message </div>
          </div>
        </div>

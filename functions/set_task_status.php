@@ -14,15 +14,16 @@ if(isset($_POST['id']) && isset($_POST['value'])){
             $response->code = "403";
             $response->time = date('Y-m-d H:i:s');
             $response->error = "Forbidden";
-    }
-        // Update the task
-        DB::query('UPDATE tasks SET is_finished=:is_finished WHERE id=:id',array(':id'=>$id,':is_finished'=>$value));
-        http_response_code(200);
-        $response->message = "Task status updated";
-        $response->dev_message = "Task status updated to ".(int)($value);
-        $response->status = "Ok";
-        $response->code = "200";
-        $response->time = date('Y-m-d H:i:s');
+         }else{
+            // Update the task
+            DB::query('UPDATE tasks SET is_finished=:is_finished WHERE id=:id',array(':id'=>$id,':is_finished'=>$value));
+            http_response_code(200);
+            $response->message = "Task status updated";
+            $response->dev_message = "Task status updated to ".(int)($value);
+            $response->status = "Ok";
+            $response->code = "200";
+            $response->time = date('Y-m-d H:i:s');
+         }
     }else{ //Task not found
         http_response_code(404);
         $response->message = "Task not found";
