@@ -1,5 +1,3 @@
-Options -Indexes
-IndexOptions -FancyIndexing
-
 order allow,deny
 allow from all
+Require all granted
