@@ -1,10 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com
-    - export REPOPATH=/home/campqvyh/portal.campaignersmiu.com/root
-    - /bin/rsync -rav --exclude '.git' --exclude '.cpanel.yml' --exclude 'classes/DB.php' --del $REPOPATH $SITEPATH
-
-
-
-
+    - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com/
+    - /bin/cp -R * $DEPLOYPATH
