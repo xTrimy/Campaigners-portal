@@ -1,5 +1,8 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com/
+    - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com
+    - /bin/cp $DEPLOYPATH/classes/DB.php $DEPLOYPATH/classes_temp
     - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp $DEPLOYPATH/classes_temp/DB.php $DEPLOYPATH/classes
+
