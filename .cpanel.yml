@@ -5,5 +5,5 @@ deployment:
     - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com
     - /bin/cp -R $DEPLOYPATH/classes $DEPLOYPATH/classes_tempp
     - /bin/cp -R * $DEPLOYPATH
-    - /bin/cp -R $DEPLOYPATH/classes_tempp/DB.php $DEPLOYPATH
+    - /bin/cp -R $DEPLOYPATH/classes_tempp/DB.php $DEPLOYPATH/classes
 
