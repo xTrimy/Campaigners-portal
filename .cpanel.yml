@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    #
+    ##
     - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com
     - /bin/cp -R $DEPLOYPATH/classes $DEPLOYPATH/classes_tempp
     - /bin/cp -R * $DEPLOYPATH
