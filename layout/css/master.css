@@ -785,3 +785,6 @@ body {
   border:4px solid #33b2d8;
 }
 /* Calendar END */
+.pagination-container a{
+  text-decoration:none;
+}

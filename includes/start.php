@@ -31,4 +31,8 @@
     $user['name'] = $user_data['name'];
     $user['first_name'] = explode(" ",$user['name'])[0];
     $user['image'] = $user_data['image'];
+
+    //For Pagination
+    $default_results_per_page = 10;  
+
 ?>
