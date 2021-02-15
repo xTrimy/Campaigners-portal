@@ -1,8 +1,12 @@
 <?php
+$page_permission = 2;
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
 $msg="";
+$current_user_committee = DB::query('SELECT committee_id FROM members WHERE id=:id ',
+array(':id'=>$user_id))[0]['committee_id'];
+
 //check if user submited the form
 if(isset($_POST['submit'])){
   $member_id = $_POST['member_id'];
@@ -22,9 +26,8 @@ if(isset($_POST['submit'])){
                       <form method="post" >
                         <p>Task</p>
                         <select class="binput" name="task_id" >
-                            
                         <?php
-                          $items = DB::query('SELECT * FROM tasks');
+                          $items = DB::query('SELECT * FROM tasks WHERE committee_id=:c_id',array(':c_id'=>$current_user_committee));
                         ?>
                           <option value="" disabled selected>Please select an option</option>
                           <?php
@@ -34,14 +37,11 @@ if(isset($_POST['submit'])){
                             <?php
                           }
                         ?>
-
                         </select><br>
-
                         <p>Member</p>
                         <select class="binput" name="member_id" >
-                            
                         <?php
-                          $items = DB::query('SELECT * FROM members');
+                          $items = DB::query('SELECT * FROM members WHERE committee_id=:c_id',array(':c_id'=>$current_user_committee));
                         ?>
                           <option value="" disabled selected>Please select an option</option>
                           <?php
@@ -51,7 +51,6 @@ if(isset($_POST['submit'])){
                             <?php
                           }
                         ?>
-
                         </select><br>
                         <button type="submit" name="submit" class="xbutton">Assign</button>
 

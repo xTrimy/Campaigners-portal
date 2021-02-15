@@ -1,4 +1,5 @@
 <?php
+$page_permission = 2;
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
@@ -10,11 +11,17 @@ if(isset($_POST['addtask'])){
   $description = $_POST['description'];
   $startdate = $_POST['startdate'];
   $deadline = $_POST['deadline'];
-  $committee_id = $_POST['committee_id'];
-  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id,0)', 
+  $committee_id = $_POST['committee'];
+  if($committee_id == NULL && $Permissions::getAccessLevel() < 4){
+    $msg = "Access denied";
+  }else if($Permissions::getAccessLevel() < 4 && $committee != NULL && $committee != DB::query('SELECT committee_id FROM members WHERE id=:id ',
+  array(':id'=>$user_id))[0]['committee_id']){
+    $msg = "Access denied";
+  }else{
+  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id,0,0)', 
   array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id, ':member_id' =>NULL));
-
-  $msg="Committee added successfully!";
+  $msg="Task added successfully!";
+  }
 }
  ?>
  <div id="main-body">
@@ -34,19 +41,33 @@ if(isset($_POST['addtask'])){
                       <p>Deadline</p>
                               <input type="date" class="binput" min="2021-01-01" max="2021-12-31" name="deadline" required>  <br>
                         <p>Committee</p>
-                        <select class="binput" name="committee_id" >
                         <?php
-                          $items = DB::query('SELECT * FROM committees');
+                        // OC,President & Vice can choose committee
+                          if($Permissions::getAccessLevel() >= 4){
                         ?>
-                          <option value="" disabled selected>Please select an option</option>
+                        <select class="binput" name="committee">
+                          <option disabled selected value="">Select an option</option>
+                          <option value="">All committees</option>
                           <?php
-                          foreach($items as $item){
-                            ?>
-                            <option value="<?php echo $item['id']; ?>"> <?php echo $item['name']; ?> </option>
-                            <?php
-                          }
-                        ?>
+                            $committees = DB::query('SELECT * FROM committees');
+                            foreach($committees as $committee){
+                              ?>
+                              <option value="<?php echo $committee['id'];?>"><?php echo $committee['name'];?></option>
+                              <?php
+                            }
+                          ?>
                         </select><br>
+                        <?php
+                        //Head & Co-Head can only choose their committee
+                         }else if($Permissions::getAccessLevel() >= 2){
+                          ?>
+                          <?php $commitee_details =  DB::query('SELECT c.name,c.id FROM committees c,members m WHERE m.committee_id=c.id AND m.id=:id ',
+                          array(':id'=>$user_id))[0];?>
+                          <input readonly class="binput" type="text" name="committee_name" value="<?php echo $commitee_details['name']?>">
+                          <input type="hidden" name="committee" value="<?php echo $commitee_details['id']?>">
+                          <br>
+                          <?php                          
+                        } ?>
                         <button type="submit" name="addtask" class="xbutton">Add task</button>
 
 

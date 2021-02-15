@@ -1,4 +1,5 @@
 <?php
+$page_permission = 9; //Vice or above
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
@@ -24,8 +25,6 @@ if(isset($_POST['submit'])){
                         <input type="text" class="binput" name="name" required>  <br>
                         <button type="submit" name="submit" class="xbutton">Add</button>
                       </form>
-
-
             </div>
           </div>
         </div>

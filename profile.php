@@ -28,10 +28,16 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
            <!-- <span class="nickname">(xTrimy)</span> -->
             </h2>
            <div class="tags">
+             <?php
+             if($member['cname'] != NULL){
+               ?>
             <div class="item committee"><?php echo $member['cname'] ?> </div>
-            <div class="item position">Co-head</div>
-            <div class="item it">IT Specialist</div>
-            <div class="item special">Member of the Year 2019-2020</div>
+               <?php
+             }
+             ?>
+            <div class="item position"><?php echo $Permissions::getUserLevel($member_id); ?></div>
+            <!-- <div class="item it">IT Specialist</div> -->
+            <!-- <div class="item special">Member of the Year 2019-2020</div> -->
            </div>
            <?php
             $friend_button_type = ["add-friend","remove-friend","cancel-friend","accept-friend"];

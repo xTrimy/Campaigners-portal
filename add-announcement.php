@@ -1,4 +1,5 @@
 <?php
+$page_permission = 2; //Co-head or above
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
@@ -12,9 +13,16 @@ if(isset($_POST['submit'])){
     $_POST['committee'] = NULL; 
   }
   $committee = $_POST['committee'];
-  DB::query('INSERT INTO announcements VALUES (\'\', :name,:description,:committee,0)', 
-  array(':name'=>$name,':description'=>$description,':committee'=>$committee));
-  $msg="Announcement added successfully!";
+  if($committee == NULL && $Permissions::getAccessLevel() < 4){
+    $msg = "Access denied";
+  }else if($Permissions::getAccessLevel() < 4 && $committee != NULL && $committee != DB::query('SELECT committee_id FROM members WHERE id=:id ',
+  array(':id'=>$user_id))[0]['committee_id']){
+    $msg = "Access denied";
+  }else{
+    DB::query('INSERT INTO announcements VALUES (\'\', :name,:description,:committee,0)', 
+    array(':name'=>$name,':description'=>$description,':committee'=>$committee));
+    $msg="Announcement added successfully!";
+  }
 }
  ?>
  <div id="main-body">
@@ -30,6 +38,10 @@ if(isset($_POST['submit'])){
                         <p>Description :</p> 
                         <textarea class="binput" name="description" required></textarea> <br>
                         <p>Committee :</p> 
+                        <?php
+                        // OC,President & Vice can choose committee
+                          if($Permissions::getAccessLevel() >= 4){
+                        ?>
                         <select class="binput" name="committee">
                           <option disabled selected value="">Select an option</option>
                           <option value="">All committees</option>
@@ -42,6 +54,17 @@ if(isset($_POST['submit'])){
                             }
                           ?>
                         </select><br>
+                        <?php
+                        //Head & Co-Head can only choose their committee
+                         }else if($Permissions::getAccessLevel() >= 2){
+                          ?>
+                          <?php $commitee_details =  DB::query('SELECT c.name,c.id FROM committees c,members m WHERE m.committee_id=c.id AND m.id=:id ',
+                          array(':id'=>$user_id))[0];?>
+                          <input readonly class="binput" type="text" name="committee_name" value="<?php echo $commitee_details['name']?>">
+                          <input type="hidden" name="committee" value="<?php echo $commitee_details['id']?>">
+                          <br>
+                          <?php                          
+                        } ?>
                         <button type="submit" name="submit" class="xbutton">Add</button>
                       </form>
             </div>

@@ -23,13 +23,15 @@
         </div>
       </div>
     </div>
+    <?php
+      if($Permissions::getAccessLevel() >=9){
+    ?>
     <!-- General Settings START -->
     <div class="item">
       <div class="arrow"></div>
        <i class="fas fa-cogs"></i>
       General Settings
       <div class="dropdown">
-
       <div class="item">
         <div class="arrow"></div>
         <i class="fas fa-users"></i>
@@ -65,6 +67,7 @@
       </div>
     </div>
     <!-- General Settings END -->
+    <?php } ?>
     <div class="item">
        <div class="arrow"></div>
        <a href="profile.php?id=<?php echo $user_id;?>"><i class="fas fa-user"></i>
@@ -101,5 +104,9 @@
        <i class="fas fa-door-open"></i>
       Logout
     </div>
+  </div>
+
+  <div class="viewing-as">
+    You're viewing the portal as: <span><?php echo $Permissions::getHighestPermission($user_id);?></span>
   </div>
 </div>

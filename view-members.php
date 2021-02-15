@@ -48,6 +48,7 @@ if(isset($_GET['c'])){
                 <table class="table">
                   <tr>
                     <th>#</th>
+                    <th></th>
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
@@ -61,6 +62,10 @@ if(isset($_GET['c'])){
                   foreach($results as $item){ ?>
                   <tr>
                     <td><?php echo $i; ?></td>
+                    <td><div class="table-image">
+                    <img height="50px" src="uploads/<?php echo $item['image']; ?>">
+                    </div>
+                    </td>
                     <td><?php echo $item['name']; ?></td>
                     <td><?php echo $item['phone']; ?></td>
                     <td><?php echo $item['email']; ?></td>
