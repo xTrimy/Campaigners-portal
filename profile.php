@@ -21,7 +21,7 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
          <div class="profile">
            <div class="profile-image-container">
              <div class="profile-image">
-               <img src="layout/png/<?php echo $member['img'] ?>" alt=""> 
+               <img src="uploads/<?php echo $member['img'] ?>" alt=""> 
              </div>
            </div>
            <h2><?php echo $member['name'] ?> 
@@ -82,7 +82,7 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
              <td><?php echo $member['cname'] ?> </td>
            </tr>
          </table>
-         <div class="xbutton secondary"><i class="fas fa-cog"></i> Edit Profile </div>
+         <a href="profile-settings.php"><div class="xbutton secondary"><i class="fas fa-cog"></i> Edit Profile </div></a>
        </div>
      </div>
    </div>
