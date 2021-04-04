@@ -88,7 +88,9 @@ $member = DB::query('SELECT *, m.image as img, m.name as name, c.name as cname
              <td><?php echo $member['cname'] ?> </td>
            </tr>
          </table>
+         <?php if($member_id == $user_id){?>
          <a href="profile-settings.php"><div class="xbutton secondary"><i class="fas fa-cog"></i> Edit Profile </div></a>
+          <?php } ?> 
        </div>
      </div>
    </div>

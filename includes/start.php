@@ -1,8 +1,20 @@
 <?php
-    include('classes/DB.php');
-    include('classes/TLogin.php');
-    include('classes/Login.php');
-    include('classes/Permissions.php');
+$version_number = "v1.0.0-Alpha";
+
+if (file_exists('classes/DB.php')){
+    include_once('classes/DB.php');
+    include_once('classes/TLogin.php');
+    include_once('classes/Login.php');
+    include_once('classes/Permissions.php');
+    include_once('classes/Notifications.php');
+}else{
+    include_once('../classes/DB.php');
+    include_once('../classes/TLogin.php');
+    include_once('../classes/Login.php');
+    include_once('../classes/Permissions.php');
+    include_once('../classes/Notifications.php');
+}
+    
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }

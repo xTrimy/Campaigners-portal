@@ -17,4 +17,10 @@
     </div>
 
 </div>
-<?php include('includes/sidebar.php'); ?>
+
+<?php
+if (file_exists('includes/sidebar.php'))
+   include('includes/sidebar.php');
+else
+   include('../includes/sidebar.php');
+?>

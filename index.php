@@ -6,7 +6,7 @@
         <div class="page-title">
           Welcome, <?php echo $user['first_name']; ?>
         </div>
-        <p>It seems like it's your first time here! Watch the tutorial for the all-new Campaigners portal <a href="#">here</a></p>
+        <!-- <p>It seems like it's your first time here! Watch the tutorial for the all-new Campaigners portal <a href="#">here</a></p> -->
         <div class="cards">
           <div class="row">
             <div class="item">

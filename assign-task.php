@@ -12,7 +12,7 @@ if(isset($_POST['submit'])){
   $member_id = $_POST['member_id'];
   $task_id = $_POST['task_id'];
   DB::query('UPDATE tasks SET member_id=:member_id WHERE id=:task_id ',array(':member_id'=>$member_id,':task_id'=>$task_id));
-
+  Notifications::createNotificationForUserWithRefrence($member_id, "event.committee", $name, $get_announcement_id,$user_id);
   $msg= 'Task assigned successfully'; 
 }
  ?>

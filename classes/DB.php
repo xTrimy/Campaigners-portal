@@ -34,6 +34,8 @@ class DB
                 $query = str_replace("WHERE","WHERE ".$table_name.".is_deleted=0 AND",$query);
             }else if(strpos($query,'ORDER BY')){
                 $query = str_replace("ORDER BY","WHERE ".$table_name.".is_deleted=0 ORDER BY",$query);
+            }else if (strpos($query, 'GROUP BY')) {
+                $query = str_replace("GROUP BY", "WHERE " . $table_name . ".is_deleted=0 GROUP BY", $query);
             }else{
                 $query .= " WHERE ".$table_name.".is_deleted=0";
             }

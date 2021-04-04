@@ -23,6 +23,13 @@ if(isset($_POST['submit'])){
   }else{
     DB::query('INSERT INTO events VALUES (\'\', :name,:description,:start_date,:end_date,:committee,0)', 
     array(':name'=>$name,':description'=>$description,':start_date'=>$start_date,':end_date'=>$end_date,':committee'=>$committee));
+    $get_event_id = DB::query('SELECT id FROM events WHERE name=:name AND description=:description ORDER BY id DESC LIMIT 1 ', array(':name' => $name, ':description' => $description))[0]['id'];
+
+    if ($committee != NULL) {
+      Notifications::createNotificationForCommitteeWithRefrence($committee, "event.committee", $name, $get_event_id);
+    } else {
+      Notifications::createPublicNotificationWithRefrence("event.public", $name, $get_event_id);
+    }
     $msg="Event added successfully!";
   }
 }

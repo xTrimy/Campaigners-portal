@@ -21,6 +21,12 @@ if(isset($_POST['submit'])){
   }else{
     DB::query('INSERT INTO announcements VALUES (\'\', :name,:description,:committee,0)', 
     array(':name'=>$name,':description'=>$description,':committee'=>$committee));
+    $get_announcement_id = DB::query('SELECT id FROM announcements WHERE name=:name AND description=:description ORDER BY id DESC LIMIT 1 ',array(':name'=>$name,':description'=>$description))[0]['id'];
+    if($committee != NULL){
+      Notifications::createNotificationForCommitteeWithRefrence($committee,"announcement.committee",$name,$get_announcement_id);
+    }else{
+      Notifications::createPublicNotificationWithRefrence("announcement.public", $name, $get_announcement_id);
+    }
     $msg="Announcement added successfully!";
   }
 }

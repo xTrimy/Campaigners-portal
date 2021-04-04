@@ -14,7 +14,7 @@ if(isset($_POST['addtask'])){
   $committee_id = $_POST['committee'];
   if($committee_id == NULL && $Permissions::getAccessLevel() < 4){
     $msg = "Access denied";
-  }else if($Permissions::getAccessLevel() < 4 && $committee != NULL && $committee != DB::query('SELECT committee_id FROM members WHERE id=:id ',
+  }else if($Permissions::getAccessLevel() < 4 && $committee_id != NULL && $committee_id != DB::query('SELECT committee_id FROM members WHERE id=:id ',
   array(':id'=>$user_id))[0]['committee_id']){
     $msg = "Access denied";
   }else{
@@ -25,7 +25,6 @@ if(isset($_POST['addtask'])){
 }
  ?>
  <div id="main-body">
- 
         <div class="cards">
           <div class="row">
             <div class="item">
@@ -58,7 +57,7 @@ if(isset($_POST['addtask'])){
                           ?>
                         </select><br>
                         <?php
-                        //Head & Co-Head can only choose their committee
+                        //Head & Co-Head can choose only their committee
                          }else if($Permissions::getAccessLevel() >= 2){
                           ?>
                           <?php $commitee_details =  DB::query('SELECT c.name,c.id FROM committees c,members m WHERE m.committee_id=c.id AND m.id=:id ',
@@ -69,11 +68,7 @@ if(isset($_POST['addtask'])){
                           <?php                          
                         } ?>
                         <button type="submit" name="addtask" class="xbutton">Add task</button>
-
-
                       </form>
-
-
             </div>
           </div>
         </div>

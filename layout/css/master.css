@@ -201,7 +201,6 @@ body {
 #main-body .cards .row {
   width: 100%;
   display: flex;
-  margin: 20px 0;
   padding: 5px 0;
   flex-wrap: wrap;
 }

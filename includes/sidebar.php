@@ -74,7 +74,7 @@
       Profile</a>
       <div class="dropdown">
         <div class="item">
-          <a href="#"><i class="fas fa-user-cog"></i>
+          <a href="profile-settings.php"><i class="fas fa-user-cog"></i>
          Profile Settings</a>
         </div>
       </div>
@@ -108,5 +108,6 @@
 
   <div class="viewing-as">
     You're viewing the portal as: <span><?php echo $Permissions::getHighestPermission($user_id);?></span>
+    <p><?php echo $version_number; ?></p>
   </div>
 </div>
