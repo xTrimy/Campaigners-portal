@@ -20,7 +20,9 @@ if(isset($_POST['id'])){
             $response->time = date('Y-m-d H:i:s');
         }else{
             // Cancel friend request
-            DB::query('UPDATE friends SET is_deleted=1 WHERE sender_id=:sender_id AND receiver_id=:receiver_id',array(':sender_id'=>$user_id,':receiver_id'=>$id));
+            DB::query(
+            'UPDATE friends SET is_deleted=1 WHERE sender_id=:sender_id AND receiver_id=:receiver_id', array(':sender_id' => $user_id, ':receiver_id' => $id));
+            DB::query('UPDATE notifications SET is_deleted=1 WHERE sender_id=:sender_id AND recipient_id=:receiver_id AND type="friend.request"',array(':sender_id'=>$user_id,':receiver_id'=>$id));
             http_response_code(200);
             $response->message = "Friend request canceled";
             $response->dev_message = "Friend request canceled for user_id(".$id.")";
@@ -35,7 +37,7 @@ if(isset($_POST['id'])){
         $response->code = "404";
         $response->time = date('Y-m-d H:i:s');
         $response->error = "Not found";
-}
+    }
 }else{ // Request isn't correct (parameters not correct {$id})
     http_response_code(400);
     $response->status = "Bad request";

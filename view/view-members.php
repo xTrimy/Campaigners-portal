@@ -54,12 +54,24 @@ if (isset($_GET['c'])) {
               <th>Email</th>
               <th>ID</th>
               <th>Committee</th>
-              <!-- <th>Evaluate</th> -->
-              <th>Warn</th>
+              <?php if ($Permissions::getAccessLevel() > 1) { //Check high role (co-head or above) ?>
+                <th>Evaluate</th>
+                <th>Warn</th>
+              <?php } ?>
             </tr>
             <?php
             $i = 1 + ($page - 1) * $results_per_page;
-            foreach ($results as $item) { ?>
+            foreach ($results as $item) {
+              $same_committee = false;
+              $access = false;
+              if ($user['committee_id'] == $item['committee_id']) {
+                $same_committee = true;
+              }
+              if ($Permissions::getAccessLevel() > 1) {
+                if ($Permissions::getAccessLevel() > 2 || $same_committee) //Check if higher than head, or head with same committee access
+                  $access = true;
+              }
+            ?>
               <tr>
                 <td><?php echo $i; ?></td>
                 <td>
@@ -73,14 +85,20 @@ if (isset($_GET['c'])) {
                 <td><?php echo $item['university_id']; ?></td>
                 <td><?php echo $item['cname']; // -- Print member's committee name -- 
                     ?></td>
-                <!-- <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td> -->
+                <?php if ($Permissions::getAccessLevel() > 1) { //Check high role (co-head or above) ?>
+                  <td>
+                    <?php if ($item['id'] != $user_id && $access) { ?>
+                      <a href="evaluate.php?id=<?php echo $item['id']; ?>"><div class="xbutton blue"> <i class="fas fa-star"></i> </div></a>
+                  </td>
+                <?php } ?>
                 <td>
-                <?php if($item['id'] != $user_id){ ?>
-                  <div class="xbutton red warningButton" data-id="<?php echo $item['memberid'] ?>">
-                    <i class="fas fa-exclamation-triangle"></i>
-                  </div>
+                  <?php if ($item['id'] != $user_id && $access) { ?>
+                    <div class="xbutton red warningButton" data-id="<?php echo $item['memberid'] ?>">
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </div>
                   <?php } ?>
                 </td>
+              <?php } ?>
               </tr>
             <?php
               $i++;

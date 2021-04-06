@@ -14,6 +14,9 @@
             </div>
           </div>
           <!-- Table START -->
+          <?php
+            include('components/leaderboard.php');
+          ?>
           <div class="row">
             <div class="item">
               <h1>"Committee" members</h1>
@@ -36,8 +39,12 @@
                     <td>Mohamed.ashraf881999@gmail.com</td>
                     <td>2018/12470</td>
                     <td>Personell</td>
-                    <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td>
-                    <td><div class="xbutton red"> <i class="fas fa-exclamation-triangle"></i> </div></td>
+                    <td>
+                      <div class="xbutton blue"> <i class="fas fa-star"></i> </div>
+                    </td>
+                    <td>
+                      <div class="xbutton red"> <i class="fas fa-exclamation-triangle"></i> </div>
+                    </td>
                   </tr>
                   <tr>
                     <td>2</td>
@@ -46,8 +53,12 @@
                     <td>Mohamed.ashraf881999@gmail.com</td>
                     <td>2018/12470</td>
                     <td>Personell</td>
-                    <td><div class="xbutton blue"> <i class="fas fa-star"></i> </div></td>
-                    <td><div class="xbutton red"> <i class="fas fa-exclamation-triangle"></i> </div></td>
+                    <td>
+                      <div class="xbutton blue"> <i class="fas fa-star"></i> </div>
+                    </td>
+                    <td>
+                      <div class="xbutton red"> <i class="fas fa-exclamation-triangle"></i> </div>
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -61,23 +72,23 @@
               <h1>Form</h1>
               <div class="form">
                 <form action="index.php" method="POST">
-                <div class="flex">
-                <div class="group-input fl-1">
-                  <p>Text Input :</p>
-                  <input type="text" class="binput" name="name" placeholder="Enter Your Name">
-                </div>
-                <div class="group-input fl-1">
-                  <p>Invalid Text Input :</p>
-                  <input type="text" class="binput invalid" name="name" placeholder="Enter Your Name">
-                </div>
-                </div>
-                <div class="group-input">
-                  <p>Select :</p>
-                  <select name="select" id="select" class="binput">
-                    <option value="" selected disabled>Please Select From The Following</option>
-                    <option value="">Option 1</option>
-                  </select>
-                </div>
+                  <div class="flex">
+                    <div class="group-input fl-1">
+                      <p>Text Input :</p>
+                      <input type="text" class="binput" name="name" placeholder="Enter Your Name">
+                    </div>
+                    <div class="group-input fl-1">
+                      <p>Invalid Text Input :</p>
+                      <input type="text" class="binput invalid" name="name" placeholder="Enter Your Name">
+                    </div>
+                  </div>
+                  <div class="group-input">
+                    <p>Select :</p>
+                    <select name="select" id="select" class="binput">
+                      <option value="" selected disabled>Please Select From The Following</option>
+                      <option value="">Option 1</option>
+                    </select>
+                  </div>
                 </form>
               </div>
             </div>
@@ -89,6 +100,6 @@
               <div class="xbutton">Pop Up</div>
             </div>
           </div>
+        </div>
       </div>
-    </div>
-<?php include('includes/footer.php') ?>
+      <?php include('includes/footer.php') ?>

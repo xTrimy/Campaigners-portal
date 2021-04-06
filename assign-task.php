@@ -12,7 +12,8 @@ if(isset($_POST['submit'])){
   $member_id = $_POST['member_id'];
   $task_id = $_POST['task_id'];
   DB::query('UPDATE tasks SET member_id=:member_id WHERE id=:task_id ',array(':member_id'=>$member_id,':task_id'=>$task_id));
-  Notifications::createNotificationForUserWithRefrence($member_id, "event.committee", $name, $get_announcement_id,$user_id);
+  $task_details = DB::query('SELECT * FROM tasks  WHERE id=:task_id ',array(':task_id'=>$task_id));
+  Notifications::createNotificationForUserWithRefrence($member_id, "tasks.assign", $task_details[0]['name'], $task_id,$user_id);
   $msg= 'Task assigned successfully'; 
 }
  ?>
@@ -27,13 +28,17 @@ if(isset($_POST['submit'])){
                         <p>Task</p>
                         <select class="binput" name="task_id" >
                         <?php
-                          $items = DB::query('SELECT * FROM tasks WHERE committee_id=:c_id',array(':c_id'=>$current_user_committee));
+                          $items = DB::query('SELECT t.*,m.name as member_name FROM tasks t LEFT JOIN members m on m.id=t.member_id WHERE t.committee_id=:c_id',array(':c_id'=>$current_user_committee));
                         ?>
                           <option value="" disabled selected>Please select an option</option>
                           <?php
                           foreach($items as $item){
+                            $assigned = "";
+                            if($item['member_name']){
+                              $assigned = "(Assigned to: ".$item['member_name'].")";
+                            }
                             ?>
-                            <option value="<?php echo $item['id']; ?>"> <?php echo $item['name']; ?> </option>
+                            <option value="<?php echo $item['id']; ?>"> <?php echo $item['name']. " ". $assigned; ?>  </option>
                             <?php
                           }
                         ?>

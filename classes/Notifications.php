@@ -41,13 +41,30 @@ class Notifications{
     }
 
     public static function getUserNotifications($user_id,$limit=20){
-        if(!is_int($limit)){
+        if($limit === false){
+            $limit = 999999;
+        }
+        else if(!is_int($limit)){
             $limit = 20;
         }
         $notifications = DB::query(
             'SELECT n.*,k.name as sender,k.image as sender_image,m.committee_id as committee FROM notifications n LEFT JOIN members m ON n.recipient_id=m.id LEFT JOIN members k ON n.sender_id = k.id WHERE (recipient_id=:user_id OR recipient_id IS NULL) AND (n.committee_id IS NULL OR n.committee_id = m.committee_id) ORDER BY n.unread DESC,n.created_at DESC LIMIT '.$limit
         ,array(':user_id'=>$user_id));
         return $notifications;
+    }
+
+    public static function getNewNotificationsCount($user_id)
+    {
+        $count = DB::query(
+            'SELECT COUNT(n.id) as cnt FROM notifications n LEFT JOIN members m ON n.recipient_id=m.id LEFT JOIN members k ON n.sender_id = k.id WHERE (recipient_id=:user_id OR recipient_id IS NULL) AND (n.committee_id IS NULL OR n.committee_id = m.committee_id) AND n.unread=1 LIMIT 1',
+            array(':user_id' => $user_id)
+        )[0]['cnt'];
+        if($count > 0)
+            return $count;
+        return false;
+    }
+    public static function markNotificationAsRead($notification_id,$user_id){
+        DB::query('UPDATE notifications SET unread=0 WHERE id = :id AND recipient_id=:r_id',array(':id'=>$notification_id,':r_id'=>$user_id));
     }
 }
 

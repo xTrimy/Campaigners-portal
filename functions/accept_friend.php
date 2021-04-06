@@ -27,6 +27,7 @@ if(isset($_POST['id'])){
         }else{
             // Send friend request
             DB::query('INSERT INTO friends VALUES("",:sender_id,:receiver_id,:sent_date,0)',array(':sender_id'=>$user_id,':sent_date'=>date('Y-m-d H:i:s'),':receiver_id'=>$id));
+            Notifications::createNotificationForUserWithRefrence($id, "friend.accept", "", $user_id, $user_id);
             http_response_code(200);
             $response->message = "Friend request accepted";
             $response->dev_message = "Friend request sent to user_id(".$id.")";

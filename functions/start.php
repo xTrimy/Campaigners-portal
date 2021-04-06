@@ -1,7 +1,8 @@
 <?php
 include('../classes/DB.php');
 include('../classes/Login.php');
-include('../classes/TLogin.php');
+include( '../classes/TLogin.php');
+include('../classes/Notifications.php');
 $user_id;
 $user_type;
 $user_data;

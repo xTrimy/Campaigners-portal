@@ -1,4 +1,7 @@
 <div id="sidebar">
+  <div class="menu-button-container">
+    <div class="menu-button"></div>
+  </div>
   <div class="title">
     <img src="layout/png/logo-white.png" alt="Campaigners Logo White">
     <h1>Campaigners</h1>
@@ -95,14 +98,15 @@
     <a href="calendar.php"><i class="far fa-calendar-alt"></i>
       Calendar</a>
     </div>
+    <?php if(Permissions::getAccessLevel() >=4 ){ ?>
     <div class="item">
        <i class="far fa-envelope"></i>
       Mail
     </div>
-       
+    <?php } ?>
     <div class="item">
-       <i class="fas fa-door-open"></i>
-      Logout
+       <a href="logout.php"><i class="fas fa-door-open"></i>
+      Logout </a>
     </div>
   </div>
 

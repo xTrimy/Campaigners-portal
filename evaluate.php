@@ -2,7 +2,7 @@
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');
-
+$msg = "";
 if (!isset($_GET['id'])) {
   header('Location: ./');
 }
@@ -19,37 +19,35 @@ if (!$member_details[0]['name'] || $member_id == $user_id) {
   header('Location:./');
 }
 $member = $member_details[0];
-$same_committee = ($member['committee_id'] == $user['cid']);
+$same_committee = ($member['committee_id'] == $user['committee_id']);
 if ($Permissions::getAccessLevel() > 1) {
   if ($Permissions::getAccessLevel() > 2 || $same_committee) //Check if higher than head, or head with same committee access
     $access = true;
 }
-if(!$access){
-  header('Location:./');
-}
+// if (!$access) {
+//   header('Location:./');
+// }
 //Adding warn
-if (isset($_POST['addwarn'])) {
-
+if (isset($_POST['evaluate'])) {
   $member_id = $member['member_id'];
+  $point = $_POST['point'];
   $reason = $_POST['reason'];
-  $warndate = date('Y-m-d');
-
+  $date = date('Y-m-d H:i:s');
   DB::query(
-    'INSERT INTO warnings VALUES (\'\', :member_id, :reason, :warndate,0)',
-    array(':member_id' => $member_id, ':reason' => $reason, ':warndate' => $warndate)
+    'INSERT INTO points VALUES (\'\', :member_id,:point, :reason, :date,0)',
+    array(':member_id' => $member_id,":point"=>$point, ':reason' => $reason, ':date' => $date)
   );
   $get_warning_id = DB::query('SELECT id FROM warnings WHERE member_id=:member_id AND reason=:reason ORDER BY id DESC LIMIT 1 ', array(':member_id' => $member_id, ':reason' => $reason))[0]['id'];
-
-  Notifications::createNotificationForUserWithRefrence($member_id, "warning.default", $reason, $get_warning_id, $user_id);
-
-  echo '<script> alert("Warning sent successfully!") </script>';
+  Notifications::createNotificationForUser($member_id, "points.default", $reason, $user_id);
+  $msg = "Evaluation Done!";
 }
 ?>
 <div id="main-body">
   <div class="cards">
     <div class="row">
       <div class="item">
-        <h1>Add warning</h1>
+        <h1>Evaluate Member</h1>
+        <p><?php echo $msg; ?></p>
         <table class="data-table">
           <tr>
             <td><b>Name</b></td>
@@ -76,10 +74,12 @@ if (isset($_POST['addwarn'])) {
             <td><?php echo $member['warnings_count'] ?> </td>
           </tr>
         </table>
-        <form method="post" action="warnings.php?id=<?php echo $member['member_id'] ?>">
-          <p><b>Warning reason :</b></p>
+        <form method="post">
+          <p><b>Points:</b></p>
+          <input type="number" min="-1000" max="1000" name="point" class="binput">
+          <p><b>Evaluation Reason:</b></p>
           <textarea name="reason" id="reason" required class="binput"></textarea><br>
-          <button type="submit" name="addwarn" class="xbutton">Add warn</button>
+          <button type="submit" name="evaluate" class="xbutton">Evaluate</button>
         </form>
       </div>
     </div>
@@ -88,10 +88,10 @@ if (isset($_POST['addwarn'])) {
       <div class="item">
         <h1>Past Warnings</h1>
         <?php
-        if($member['warnings_count'] == 0){
+        if ($member['warnings_count'] == 0) {
           echo "There's no past warnings for this member ✔️";
         }
-        $warnings = DB::query('SELECT * FROM warnings WHERE member_id = :member_id',array(':member_id'=>$member_id));
+        $warnings = DB::query('SELECT * FROM warnings WHERE member_id = :member_id', array(':member_id' => $member_id));
         foreach ($warnings as $warning) {
         ?>
           <table class="table">

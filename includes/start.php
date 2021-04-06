@@ -1,5 +1,5 @@
 <?php
-$version_number = "v1.0.0-Alpha";
+$version_number = "v1.1.2-Alpha";
 
 if (file_exists('classes/DB.php')){
     include_once('classes/DB.php');
@@ -27,7 +27,7 @@ if (file_exists('classes/DB.php')){
     if(Login::isLoggedIn()){
         $user_id=Login::isLoggedIn();
         $Permissions::grantPermission('member');
-        $user_data = DB::query('SELECT * FROM members WHERE id=:id',array(':id'=>$user_id));
+        $user_data = DB::query('SELECT m.*, c.name as cname, c.id as cid FROM members m,committees c WHERE c.id=m.committee_id AND m.id=:id',array(':id'=>$user_id));
         $user_level = $Permissions::getUserLevel($user_id);
         $Permissions::grantPermission($user_level);
 
@@ -48,6 +48,8 @@ if (file_exists('classes/DB.php')){
     $user['name'] = $user_data['name'];
     $user['first_name'] = explode(" ",$user['name'])[0];
     $user['image'] = $user_data['image'];
+    $user['committee'] = $user_data[ 'cname'];
+    $user['committee_id'] = $user_data['cid'];
 
     //For Pagination
     $default_results_per_page = 10;  
@@ -59,5 +61,8 @@ if (file_exists('classes/DB.php')){
     if($Permissions::getAccessLevel() < $page_permission){
         header('Location:index.php?forbidden');
         exit;
+    }
+    if(isset($_GET['notification'])){
+        Notifications::markNotificationAsRead($_GET['notification'],$user_id);
     }
 ?>

@@ -36,7 +36,7 @@ $event_details = DB::query('SELECT e.*,c.name as cname FROM events e LEFT JOIN c
         <?php
         foreach ($event_details as $event) {
         ?>
-            <div class="row">
+            <div class="row mb-50">
                 <div class="item">
                     <h1>Event Date</h1>
                     <p>Event Starts At: <b><?php echo $event['start_date']; ?></b></p>

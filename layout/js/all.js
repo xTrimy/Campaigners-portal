@@ -198,3 +198,15 @@ for(let i =0;i<accept_friend_button.length;i++){
   accept_friend_event(accept_friend_button[i]);
 }
 // Friend Requests END
+
+// Sidebar Open-Close START
+
+var menuButton = document.getElementsByClassName('menu-button');
+var sidebar = document.getElementById('sidebar');
+for(let i = 0; i<menuButton.length; i++){
+    menuButton[i].addEventListener('click',function(){
+    sidebar.classList.toggle('open');
+  })
+}
+
+// Sidebar Open-Close END
