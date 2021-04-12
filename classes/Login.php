@@ -2,7 +2,6 @@
 
 class Login{
 public static function isLoggedIn() {
-        return 1;
         if(isset($_COOKIE['Campaigners_ID'])){
             if(DB::query('SELECT user_id FROM member_login_tokens WHERE token=:token', array(':token'=>sha1($_COOKIE['Campaigners_ID'])))){
                     $userid = DB::query('SELECT user_id FROM member_login_tokens WHERE token=:token', array(':token'=>sha1($_COOKIE['Campaigners_ID'])))[0]['user_id'];
@@ -11,11 +10,12 @@ public static function isLoggedIn() {
                     }else{
                         $cstrong = True;
                         $token = bin2hex(openssl_random_pseudo_bytes(64, $cstrong));
-                        $timeNow = date('Y-m-d H:i:s');
+                       DB::query('UPDATE member_login_tokens SET is_deleted=1 WHERE token=:token', array(':token'=>sha1($_COOKIE['Campaigners_ID'])));
+                       
                         DB::query('INSERT INTO member_login_tokens VALUES (\'\', :token, :user_id,0)', array(':token'=>sha1($token), ':user_id'=>$userid));
-                        DB::query('DELETE FROM member_login_tokens WHERE token=:token', array(':token'=>sha1($_COOKIE['Campaigners_ID'])));
-                        setcookie("Campaigners_ID", $token, time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE); //setting cookie to 3 days
-                        setcookie("Campaigners_ID_", '1', time() + 60 * 60 * 12, '/', NULL, NULL, TRUE); //setting (rest) cookie to 12 hours
+                        
+                        setcookie("Campaigners_ID", $token, time() + 60 * 60 * 24 * 7, '/', NULL, NULL, TRUE);
+                        setcookie("Campaigners_ID_", '1', time() + 60 * 60 * 24 * 3, '/', NULL, NULL, TRUE);
                         return $userid;
                     }
             }
@@ -33,5 +33,4 @@ public static function isLoggedIn() {
     }
 
 }
-
-?>
+  

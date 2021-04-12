@@ -1,7 +1,6 @@
 <?php
 include('includes/start.php');
-include('includes/head.php');
-include('includes/header.php');
+
 $msg = "";
 if (!isset($_GET['id'])) {
   header('Location: ./');
@@ -41,6 +40,8 @@ if (isset($_POST['evaluate'])) {
   Notifications::createNotificationForUser($member_id, "points.default", $reason, $user_id);
   $msg = "Evaluation Done!";
 }
+include('includes/head.php');
+include('includes/header.php');
 ?>
 <div id="main-body">
   <div class="cards">

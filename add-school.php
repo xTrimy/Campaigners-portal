@@ -1,5 +1,5 @@
 <?php
-$page_permission = 4;
+$page_permission = 9;
 include('includes/start.php');
 include('includes/head.php');
 include('includes/header.php');

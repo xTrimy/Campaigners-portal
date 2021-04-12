@@ -1,5 +1,5 @@
 <?php
-$version_number = "v1.1.2-Alpha";
+$version_number = "v1.2.3-Alpha";
 
 if (file_exists('classes/DB.php')){
     include_once('classes/DB.php');
@@ -7,12 +7,16 @@ if (file_exists('classes/DB.php')){
     include_once('classes/Login.php');
     include_once('classes/Permissions.php');
     include_once('classes/Notifications.php');
-}else{
+    include_once('classes/TShirts.php');
+    include_once('classes/Functions.php');
+} else {
     include_once('../classes/DB.php');
     include_once('../classes/TLogin.php');
     include_once('../classes/Login.php');
     include_once('../classes/Permissions.php');
     include_once('../classes/Notifications.php');
+    include_once('../classes/TShirts.php');
+    include_once('../classes/Functions.php');
 }
     
     if (session_status() == PHP_SESSION_NONE) {
