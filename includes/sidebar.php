@@ -11,21 +11,7 @@
       <a href="./"><i class="fas fa-tachometer-alt"></i>
         Dashboard</a>
     </div>
-    <div class="item">
-      <div class="arrow"></div>
-      <i class="fas fa-star-of-life"></i>
-      Updates
-      <div class="dropdown">
-        <div class="item">
-          <a href="add-announcement.php"><i class="fas fa-bullhorn"></i>
-            New Announcement</a>
-        </div>
-        <div class="item">
-          <a href="view-announcements.php"><i class="fas fa-scroll"></i>
-            All Announcements</a>
-        </div>
-      </div>
-    </div>
+
     <?php
     if ($Permissions::getAccessLevel() >= 10) {
     ?>
@@ -56,6 +42,21 @@
     <?php
     if ($Permissions::getAccessLevel() >= 9) {
     ?>
+      <div class="item">
+        <div class="arrow"></div>
+        <i class="fas fa-star-of-life"></i>
+        Updates
+        <div class="dropdown">
+          <div class="item">
+            <a href="add-announcement.php"><i class="fas fa-bullhorn"></i>
+              New Announcement</a>
+          </div>
+          <div class="item">
+            <a href="view-announcements.php"><i class="fas fa-scroll"></i>
+              All Announcements</a>
+          </div>
+        </div>
+      </div>
       <!-- General Settings START -->
       <div class="item">
         <div class="arrow"></div>
@@ -113,6 +114,8 @@
       <a href="view-members.php"> <i class="fas fa-users"></i>
         Members </a>
     </div>
+
+    <?php if(Permissions::getAccessLevel() > 0 ){ ?>
     <div class="item">
       <a href="points.php"> <i class="far fa-star"></i>
         My Points </a>
@@ -146,6 +149,7 @@
       </div>
     <?php
     }
+  }
     ?>
     <div class="item">
       <a href="logout.php"><i class="fas fa-door-open"></i>
