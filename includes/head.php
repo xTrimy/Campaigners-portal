@@ -10,3 +10,6 @@
   </head>
   <body>
     <div class="wrapper">
+<?php
+  $userid = 1;
+?>

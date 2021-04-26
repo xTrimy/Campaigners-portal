@@ -25,7 +25,7 @@
     </div>
     <div class="item">
        <div class="arrow"></div>
-       <a href="profile.php"><i class="fas fa-user"></i>
+       <a href="profile.php?id=<?php echo $userid; ?>"><i class="fas fa-user"></i>
       Profile</a>
       <div class="dropdown">
         <div class="item">
