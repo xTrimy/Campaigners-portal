@@ -1,5 +1,10 @@
 <?php
 include('includes/start.php');
+if (Permissions::getAccessLevel() == 0) {
+  header('Location:/?forbidden');
+  exit;
+}
+
 include('includes/head.php');
 include('includes/header.php');
 ?>

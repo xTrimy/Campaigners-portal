@@ -2,18 +2,28 @@
 include('includes/start.php');
 if (!isset($_GET['id'])) {
   header('Location: ./');
+  exit;
 }
 
 
 $member_id = $_GET['id'];
 
 //Fetching member's data + there committee's name
-$member = DB::query(
-  'SELECT *, m.image as img, m.name as name, c.name as cname 
-                     FROM members m LEFT JOIN committees c ON m.committee_id=c.id
+if (isset($_GET['trainee'])) {
+  $member = DB::query(
+    'SELECT *, m.image as img, m.name as name, c.name as cname , NULL as nickname 
+                     FROM trainees m LEFT JOIN schools c ON m.school_id=c.id
                      WHERE m.id=:id',
-  array(':id' => $member_id)
-);
+    array(':id' => $member_id)
+  );
+}else{
+  $member = DB::query(
+    'SELECT *, m.image as img, m.name as name, c.name as cname
+                      FROM members m LEFT JOIN committees c ON m.committee_id=c.id
+                      WHERE m.id=:id',
+    array(':id' => $member_id)
+  );
+}
 if (!$member) {
   header('Location:./');
   exit;
@@ -45,35 +55,38 @@ include('includes/header.php');
             }
             ?>
             <div class="item position"><?php echo $Permissions::getUserLevel($member_id); ?></div>
-            <?php if (Streaks::getStreakCountMoreThanTwo($member_id)) { ?>
+            <?php if (Permissions::getAccessLevel() > 0 && Streaks::getStreakCountMoreThanTwo($member_id)) { ?>
               <div title="Daily Streak" class="item streak_count">
-                <?php echo Streaks::streakAlmostDies($member_id); echo Streaks::getStreakCount($member_id); ?>
+                <?php echo Streaks::streakAlmostDies($member_id);
+                echo Streaks::getStreakCount($member_id); ?>
               </div>
             <?php } ?>
             <!-- <div class="item it">IT Specialist</div> -->
             <!-- <div class="item special">Member of the Year 2019-2020</div> -->
           </div>
           <?php
-          $friend_button_type = ["add-friend", "remove-friend", "cancel-friend", "accept-friend"];
-          $friends = 0;
-          $check_friend_request_sent = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id', array(':sender_id' => $user_id, ":receiver_id" => $member_id));
-          $check_friend_request_received = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id', array(':sender_id' => $member_id, ":receiver_id" => $user_id));
-          //Check friends
-          if ($check_friend_request_sent && $check_friend_request_received) {
-            $friends = 1; //Friends
-          } else if ($check_friend_request_sent) {
-            $friends = 2; //Friend request sent
-          } else if ($check_friend_request_received) {
-            $friends = 3; //Friend request received
-          }
+          if (Permissions::getAccessLevel() > 0) {
+            $friend_button_type = ["add-friend", "remove-friend", "cancel-friend", "accept-friend"];
+            $friends = 0;
+            $check_friend_request_sent = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id', array(':sender_id' => $user_id, ":receiver_id" => $member_id));
+            $check_friend_request_received = DB::query('SELECT 1 FROM friends WHERE sender_id=:sender_id AND receiver_id=:receiver_id', array(':sender_id' => $member_id, ":receiver_id" => $user_id));
+            //Check friends
+            if ($check_friend_request_sent && $check_friend_request_received) {
+              $friends = 1; //Friends
+            } else if ($check_friend_request_sent) {
+              $friends = 2; //Friend request sent
+            } else if ($check_friend_request_received) {
+              $friends = 3; //Friend request received
+            }
 
           ?>
-          <?php if ($user_id != $member_id) { ?>
-            <div data-id="<?php echo $member_id; ?>" class="xbutton <?php echo $friend_button_type[$friends]; ?>">
-              <div class="content"></div>
-            </div>
-            <div class="xbutton secondary blue"><i class="fas fa-envelope"></i> Message </div>
-          <?php } ?>
+            <?php if ($user_id != $member_id) { ?>
+              <div data-id="<?php echo $member_id; ?>" class="xbutton <?php echo $friend_button_type[$friends]; ?>">
+                <div class="content"></div>
+              </div>
+              <div class="xbutton secondary blue"><i class="fas fa-envelope"></i> Message </div>
+          <?php }
+          } ?>
         </div>
       </div>
 

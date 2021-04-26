@@ -58,6 +58,9 @@ class Permissions{
         return self::$access_level;
     }
     public static function getUserLevel($user_id){
+        if(self::getAccessLevel() == 0 ){
+            return "Trainee";
+        }
         $get_user_level = DB::query('SELECT p.name FROM positions p,members m WHERE p.id=m.position_id AND m.id=:id',array(':id'=>$user_id));
         if($get_user_level){
             return $get_user_level[0]['name'];

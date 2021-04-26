@@ -1,3 +1,5 @@
+<?php if(Permissions::getAccessLevel() > 0 ){ ?>
+
 <div class="row">
     <div class="item">
         <h1>Status</h1>
@@ -62,3 +64,4 @@
         </div>
     </div>
 </div>
+<?php } ?>

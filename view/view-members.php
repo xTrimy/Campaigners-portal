@@ -14,6 +14,7 @@ $page_first_result = ($page - 1) * $results_per_page;
 
 //Default is user's committe ID, if all is set or specific commit is set override default
 if (!isset($_GET['all']) && !isset($_GET['c'])) {
+  if(!Permissions::getAccessLevel() == 0)
   $_GET['c'] = $user['committee'];
 }
 $number_of_result = DB::query('SELECT COUNT(1) as cnt FROM members m LEFT JOIN committees c ON m.committee_id=c.id')[0]['cnt'];
@@ -135,7 +136,7 @@ include('../includes/header.php');
           ?>
         </div>
         <br>
-        <?php if (isset($_GET['all'])) { ?>
+        <?php if (!Permissions::getAccessLevel() && isset($_GET['all'])) { ?>
           <a href="?">
             <div class="xbutton">View <?php echo ucfirst($user['committee']); ?> Members</div>
           </a>

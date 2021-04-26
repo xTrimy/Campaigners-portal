@@ -1,14 +1,23 @@
 <?php
 include('includes/start.php');
-include('includes/head.php');
-include('includes/header.php');
+
+if (Permissions::getAccessLevel() == 0) {
+    header('Location:/?forbidden');
+    exit;
+}
+
 if (!isset($_GET['id'])) {
     header('Location:./');
 }
-$id = $_GET['id'];
 if (!TShirts::getTshirtsFormData($id)) {
     header('Location:./');
 }
+$id = $_GET['id'];
+
+include('includes/head.php');
+include('includes/header.php');
+
+
 
 $data = TShirts::getTshirtsFormData($id);
 $form = $data[0];

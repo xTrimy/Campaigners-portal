@@ -46,7 +46,7 @@ if (file_exists('classes/DB.php')){
     else if(TLogin::isLoggedIn()){
         $user_id=TLogin::isLoggedIn();
         $Permissions::grantPermission('trainee');
-        $user_data = DB::query('SELECT * FROM trainees WHERE id=:id',array(':id'=>$user_id));
+        $user_data = DB::query('SELECT t.*, s.name as cname, s.id as cid FROM trainees t,schools s WHERE s.id=t.school_id AND t.id=:id', array(':id' => $user_id));
     }else{
         header('Location: ./login_page.html');
     }
@@ -55,7 +55,8 @@ if (file_exists('classes/DB.php')){
         header('Location: ./login_page.html');
     }
 
-    Streaks::addNewStreakIfNotExist($user_id);
+    if($Permissions::getAccessLevel() > 0)
+        Streaks::addNewStreakIfNotExist($user_id);
 
     $user_data=$user_data[0];
     $user['name'] = $user_data['name'];
@@ -63,7 +64,9 @@ if (file_exists('classes/DB.php')){
     $user['image'] = $user_data['image'];
     $user['committee'] = $user_data[ 'cname'];
     $user['committee_id'] = $user_data['cid'];
-    $user['streak_count'] = Streaks::getStreakCountMoreThanTwo($user_id);
+    $user['streak_count'] = 0;
+    if ($Permissions::getAccessLevel() > 0)
+        $user['streak_count'] = Streaks::addNewStreakIfNotExist($user_id);
 
     //For Pagination
     $default_results_per_page = 10;  
@@ -76,8 +79,9 @@ if (file_exists('classes/DB.php')){
         header('Location:index.php?forbidden');
         exit;
     }
-    if(isset($_GET['notification'])){
-        Notifications::markNotificationAsRead($_GET['notification'],$user_id);
-    }
+    if ($Permissions::getAccessLevel() > 0)
+        if(isset($_GET['notification'])){
+            Notifications::markNotificationAsRead($_GET['notification'],$user_id);
+        }
     // Record today's streak if not exists
 ?>

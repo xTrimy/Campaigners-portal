@@ -1,10 +1,10 @@
 <?php
 include('includes/start.php');
-include('includes/head.php');
-include('includes/header.php');
+
 
 if (!isset($_GET['id'])) {
   header('Location: ./');
+  exit;
 }
 $member_id = $_GET['id'];
 
@@ -17,6 +17,7 @@ $member_details = DB::query(
 );
 if (!$member_details[0]['name'] || $member_id == $user_id) {
   header('Location:./');
+  exit;
 }
 $member = $member_details[0];
 $same_committee = ($member['committee_id'] == $user['cid']);
@@ -24,8 +25,9 @@ if ($Permissions::getAccessLevel() > 1) {
   if ($Permissions::getAccessLevel() > 2 || $same_committee) //Check if higher than head, or head with same committee access
     $access = true;
 }
-if(!$access){
+if (!$access) {
   header('Location:./');
+  exit;
 }
 //Adding warn
 if (isset($_POST['addwarn'])) {
@@ -43,6 +45,9 @@ if (isset($_POST['addwarn'])) {
   Notifications::createNotificationForUserWithRefrence($member_id, "warning.default", $reason, $get_warning_id, $user_id);
 
   echo '<script> alert("Warning sent successfully!") </script>';
+
+  include('includes/head.php');
+  include('includes/header.php');
 }
 ?>
 <div id="main-body">
@@ -88,10 +93,10 @@ if (isset($_POST['addwarn'])) {
       <div class="item">
         <h1>Past Warnings</h1>
         <?php
-        if($member['warnings_count'] == 0){
+        if ($member['warnings_count'] == 0) {
           echo "There's no past warnings for this member ✔️";
         }
-        $warnings = DB::query('SELECT * FROM warnings WHERE member_id = :member_id',array(':member_id'=>$member_id));
+        $warnings = DB::query('SELECT * FROM warnings WHERE member_id = :member_id', array(':member_id' => $member_id));
         foreach ($warnings as $warning) {
         ?>
           <table class="table">
