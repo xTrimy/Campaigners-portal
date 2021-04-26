@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Automatic deployment Test 6 -->
+  <title>Login | Campaigners Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+  html,body{
+    width: 100%;
+    height: 100%;
+  }
+.login_button {
+  border: none;
+  color: white;
+  padding: 16px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white;
+  color: black;
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+.main-login-body{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.main-login-body .logo{
+  width:200px;
+  height:200px;
+  margin:0 auto;
+}
+.main-login-body .logo img{
+  width: 100%;
+  height: 100%;
+}
+.main-login-body .logo-container{
+  margin-bottom:50px;
+  text-align: center;
+  color:#137007;
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+  <div class="main-login-body">
+    <div class="logo-container">
+      <div class="logo"> <img src="layout/png/logo-green.png"></div>
+      <h1>Campaigners Portal TEST</h1>
+    </div>
+    <div>
+      <a href="members_login.php"><button class="login_button  button1">login for members</button></a>
+      <a href="trainees_login.php"><button class="login_button  button2">login for trainees</button></a>
+    </div>
+  </div>
+</body>
+</html>

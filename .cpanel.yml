@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    ##
+    - export DEPLOYPATH=/home/campqvyh/portal.campaignersmiu.com
+    - export CLASSESPATH=/home/campqvyh/portal.campaignersmiu.com/classes
+    - /bin/cp -r $CLASSESPATH $DEPLOYPATH/classes_tempp
+    - /bin/cp -r * $DEPLOYPATH
+    - /bin/cp -r $DEPLOYPATH/classes_tempp/DB.php CLASSESPATH

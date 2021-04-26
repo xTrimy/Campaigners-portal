@@ -1,0 +1,11 @@
+RewriteEngine On
+
+#if a match for asset is found, do nothing
+RewriteRule ^view/ - [L]
+
+RewriteCond %{THE_REQUEST} includes/
+RewriteRule ^club_portal/view/(.*) club_portal/$1 [R=301,L]
+
+RewriteCond %{REQUEST_URI} !view/
+RewriteCond %{REQUEST_URI} view-
+RewriteRule ^(.*)$ view/$1 [L]
