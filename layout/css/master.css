@@ -964,12 +964,13 @@ a{
 }
 
 .voucher {
-  padding: 5px;
   width: 400px;
-  height: 100px;
+  height: 120px;
+  padding: 10px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   align-items: center;
   margin: 10px;
+  border: 2px dashed #555;
 }
 
 .voucher .voucher-img {
