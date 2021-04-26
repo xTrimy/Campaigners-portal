@@ -18,8 +18,8 @@ if(isset($_POST['addtask'])){
   array(':id'=>$user_id))[0]['committee_id']){
     $msg = "Access denied";
   }else{
-  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee, :member_id,0,0)', 
-  array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id, ':member_id' =>NULL));
+  DB::query('INSERT INTO tasks VALUES (\'\', :name, :description, :startdate, :deadline, :committee,:assigned_by,0,0)', 
+  array(':name'=>$name, ':description'=>$description, ':startdate'=>$startdate, ':deadline'=>$deadline, ':committee'=>$committee_id,':assigned_by'=>$user_id));
   $msg="Task added successfully!";
   }
 }

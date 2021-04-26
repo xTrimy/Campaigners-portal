@@ -8,12 +8,16 @@ if(isset($_POST['id']) && isset($_POST['value'])){
     $value = $_POST['value'];
     $value = $value === 'true'? 1: 0;
     if(DB::query('SELECT 1 FROM tasks WHERE id=:id',array(':id'=>$id))){ // Check if task exists
-        if(!DB::query('SELECT 1 FROM tasks WHERE id=:id AND member_id=:member_id',array(':id'=>$id,':member_id'=>$user_id))){ // Check if user not allowed to send this request
+        if(!(DB::query('SELECT 1 FROM tasks t LEFT JOIN members_tasks mt ON mt.task_id = t.id JOIN members m ON mt.member_id=m.id AND m.id=:user_id WHERE t.id=:id',array(':id'=>$id,':user_id'=>$user_id))) // Check if is user the "assigned to" user
+        && (!(Permissions::getAccessLevel($user_id) >= 2 && $user['committee_id'] == DB::query('SELECT committee_id FROM tasks WHERE id=:id', array(':id' => $id))[0]['committee_id']) //Check if user is head of the committee
+        && !(Permissions::getAccessLevel($user_id) >= 4))) //Check if user high board or higher
+        { 
             http_response_code(403);
             $response->status = "Forbidden";
             $response->code = "403";
             $response->time = date('Y-m-d H:i:s');
             $response->error = "Forbidden";
+            
          }else{
             // Update the task
             DB::query('UPDATE tasks SET is_finished=:is_finished WHERE id=:id',array(':id'=>$id,':is_finished'=>$value));

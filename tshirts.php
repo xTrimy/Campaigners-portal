@@ -23,13 +23,13 @@ if (isset($_POST['submit'])) {
 
     extract($_POST);
 
-    DB::query('INSERT INTO tshirts_registrees VALUES(\'\',:form_id,:member_id,:size,:color,:style,:option,0)',array(
-        ":form_id"=>$id,
+    DB::query('INSERT INTO tshirts_registrees VALUES(\'\',:form_id,:member_id,:size,:color,:style,:option,0)', array(
+        ":form_id" => $id,
         ":member_id" => $user_id,
-        ":size"=>$size,
-        ":style"=>$style,
-        ":option"=>$option,
-        ":color"=>$color
+        ":size" => $size,
+        ":style" => $style,
+        ":option" => $option,
+        ":color" => $color
     ));
 
     $msg = "Your request has been submitted";
@@ -40,7 +40,15 @@ if (isset($_POST['submit'])) {
 
     <div class="cards">
         <div class="row">
+
             <div class="item">
+                <h1>Size Chart</h1>
+
+                <img style="width:100%;max-width:800px; margin:0 auto;text-align:center;" src="uploads/<?php echo $form['size_chart']; ?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="item ">
                 <h1><?php echo $form['name']; ?></h1>
                 <h3><?php echo $form['description']; ?></h3>
                 <div class="success"><?php echo $msg; ?></div>

@@ -940,7 +940,12 @@ a{
   background-color:#eee;
   box-shadow: 0px 10px 0px #eee, 0px 20px 0 #eee;
 }
-
+.streak_count{
+  font-weight: bold;
+}
+.streak_count::before{
+  content:"🔥";
+} 
 @media screen and (max-width: 800px) {
   .menu-button-container{
     display: block;

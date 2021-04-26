@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2021 at 11:57 PM
+-- Generation Time: Apr 26, 2021 at 06:33 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -263,7 +263,8 @@ INSERT INTO `friends` (`id`, `sender_id`, `receiver_id`, `sent_date`, `is_delete
 (84, 2, 1, '2021-04-04 20:31:25', 1),
 (85, 2, 1, '2021-04-05 16:21:51', 0),
 (86, 1, 2, '2021-04-05 16:22:40', 0),
-(87, 2, 255, '2021-04-12 22:41:27', 1);
+(87, 2, 255, '2021-04-12 22:41:27', 1),
+(88, 1, 252, '2021-04-21 02:47:09', 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +294,7 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `name`, `email`, `university_id`, `phone`, `committee_id`, `position_id`, `password`, `initial_password`, `image`, `bio`, `birthdate`, `nickname`, `is_deleted`) VALUES
-(1, 'Mohamed Ashraf', 'Mohamed1812470@miuegypt.edu.eg', '2018/12470', '01156052920', 1, 3, '$2y$10$AMjJ00NWMj4Qtx0.dmLBfO32/npUDD61ZwG.QWjSnGNV6eXda56zW', 'mDV2vPWVR', '1613369750-tenor.gif', 'xxxxxxxxxxxxxxxxxxxxxxx', '1999-08-08', 'xTrimy', 0),
+(1, 'Mohamed Ashraf', 'Mohamed1812470@miuegypt.edu.eg', '2018/12470', '01156052920', 1, 2, '$2y$10$AMjJ00NWMj4Qtx0.dmLBfO32/npUDD61ZwG.QWjSnGNV6eXda56zW', 'mDV2vPWVR', '1613369750-tenor.gif', 'xxxxxxxxxxxxxxxxxxxxxxx', '1999-08-08', 'xTrimy', 0),
 (2, 'Test User', 'Mohamed1812470@miuegypt.edu.eg', '2018/12470', '', 2, 1, '$2y$10$sJ.tCEVKRR5Pt55HErORROvipX146SlYwlnqi2vKiy40sOAGbApvG', 's76ztvpGK', 'giphy.gif', '', '1999-08-08', '1', 0),
 (185, 'malak', 'malak1907323@miuegypt.edu.eg', '', '1552149400', 3, 1, '$2y$10$8x/VIXnQJlQw/KtML69ER.0PFWW11jAWqG9my2Wfj.XZpkJ8zW1AG', 'bG3mrpcvJ', 'default.jpg', '', '1999-01-01', '', 0),
 (186, 'Marwan', 'Marwan1906774@miuegypt.edu.eg', '', '1013227066', 3, 1, '$2y$10$C4ZPqkm4hPE1gblQNUxvlO8H35GfnYZJevwNHv0jJVewDCZktz4Nm', 'FpNgmGb3X', 'default.jpg', '', '1999-01-01', '', 0),
@@ -390,6 +391,33 @@ INSERT INTO `members` (`id`, `name`, `email`, `university_id`, `phone`, `committ
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `members_tasks`
+--
+
+CREATE TABLE `members_tasks` (
+  `id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `members_tasks`
+--
+
+INSERT INTO `members_tasks` (`id`, `task_id`, `member_id`, `is_deleted`) VALUES
+(1, 4, 1, 1),
+(2, 7, 262, 0),
+(3, 7, 255, 0),
+(4, 7, 251, 0),
+(5, 7, 251, 0),
+(6, 7, 251, 0),
+(7, 1, 1, 0),
+(8, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `member_login_tokens`
 --
 
@@ -431,7 +459,29 @@ INSERT INTO `member_login_tokens` (`id`, `token`, `user_id`, `is_deleted`) VALUE
 (48, 'eaa0d47ff35129c0afacedeb2930afd64bac0bb7', 2, 1),
 (49, '897dd7974d78a8bc5f767de821dba270d495c040', 2, 1),
 (50, 'cd3e253bcb0a1be4502fc89bfe74a44b1f3b2d4a', 2, 0),
-(51, 'e908a756d64a1be2655a0b6dc518861b355ece09', 1, 0);
+(51, 'e908a756d64a1be2655a0b6dc518861b355ece09', 1, 0),
+(52, '69c060a0af1a92e0a5d402e5a67e2e5401197ab6', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `member_seen_start_message`
+--
+
+CREATE TABLE `member_seen_start_message` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `member_seen_start_message`
+--
+
+INSERT INTO `member_seen_start_message` (`id`, `user_id`, `message_id`, `is_deleted`) VALUES
+(8, 1, 7, 0),
+(9, 1, 15, 0);
 
 -- --------------------------------------------------------
 
@@ -476,7 +526,14 @@ INSERT INTO `notifications` (`id`, `recipient_id`, `committee_id`, `sender_id`, 
 (17, 2, NULL, 1, 0, 'friend.accept', '', '1', '2021-04-05 16:22:41', 0),
 (18, 1, NULL, 1, 0, 'tasks.assign', 'ssss', '1', '2021-04-06 20:21:01', 0),
 (19, NULL, NULL, NULL, 1, 'announcement.public', 'xTrimy', '7', '2021-04-06 20:29:50', 0),
-(20, 255, NULL, 2, 1, 'friend.request', '', '2', '2021-04-12 22:41:27', 1);
+(20, 255, NULL, 2, 1, 'friend.request', '', '2', '2021-04-12 22:41:27', 1),
+(21, 252, NULL, 1, 1, 'friend.request', '', '1', '2021-04-21 02:47:09', 1),
+(22, 262, NULL, 1, 1, 'tasks.assign', 'ssss', '1', '2021-04-22 04:17:52', 0),
+(23, 251, NULL, 1, 1, 'tasks.assign', 'test', '7', '2021-04-22 06:56:28', 0),
+(24, 251, NULL, 1, 1, 'tasks.assign', 'test', '7', '2021-04-22 06:56:37', 0),
+(25, 251, NULL, 1, 1, 'tasks.assign', 'test', '7', '2021-04-22 06:57:02', 0),
+(26, 1, NULL, 1, 0, 'tasks.assign', 'ssss', '1', '2021-04-22 06:57:32', 0),
+(27, 1, NULL, 1, 0, 'tasks.assign', 'ssss', '1', '2021-04-22 06:57:50', 0);
 
 -- --------------------------------------------------------
 
@@ -498,9 +555,8 @@ CREATE TABLE `points` (
 --
 
 INSERT INTO `points` (`id`, `user_id`, `point`, `reason`, `_date`, `is_deleted`) VALUES
-(3, 2, 600, '', '2021-04-03 18:35:21', 0),
 (4, 1, 500, 'Testing', '2021-04-04 20:07:43', 0),
-(5, 1, 500, 'Testing', '2021-04-04 20:09:07', 1);
+(5, 2, 500, 'Testing', '2021-04-04 20:09:07', 0);
 
 -- --------------------------------------------------------
 
@@ -546,6 +602,90 @@ INSERT INTO `schools` (`id`, `name`, `is_deleted`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `start_messages`
+--
+
+CREATE TABLE `start_messages` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `start_messages`
+--
+
+INSERT INTO `start_messages` (`id`, `name`, `is_deleted`) VALUES
+(7, 'Test', 0),
+(15, 'Test', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `start_messages_pages`
+--
+
+CREATE TABLE `start_messages_pages` (
+  `id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `start_messages_pages`
+--
+
+INSERT INTO `start_messages_pages` (`id`, `message_id`, `image`, `title`, `description`, `is_deleted`) VALUES
+(1, 7, '1618956158-yHTbuQPB.gif', 'Test1', 'This a test for the first page', 0),
+(2, 7, '1618956158-zo3.jpeg', 'Zoair', 'This a test for the second page', 0),
+(9, 11, '1618956596-yHTbuQPB.gif', 'Test1', 'This a test for the first page', 0),
+(10, 11, '1618956596-zo3.jpeg', 'Zoair', 'This a test for the second page', 0),
+(11, 12, '1618956606-yHTbuQPB.gif', 'Test1', 'This a test for the first page', 0),
+(12, 12, '1618956606-zo3.jpeg', 'Zoair', 'This a test for the second page', 0),
+(13, 13, '1618956731-yHTbuQPB.gif', 'Test1', 'This a test for the first page', 0),
+(14, 13, '1618956731-zo3.jpeg', 'Zoair', 'This a test for the second page', 0),
+(15, 14, '1618956749-yHTbuQPB.gif', 'Test1', 'This a test for the first page', 0),
+(16, 14, '1618956749-zo3.jpeg', 'Zoair', 'This a test for the second page', 0),
+(17, 15, '1618971079-yHTbuQPB.gif', 'Test1', 'Bodda', 0),
+(18, 15, '1618971079-size-chart-2021.jpg', 'Test1', 'Bodda2', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `streaks`
+--
+
+CREATE TABLE `streaks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `Timestamp` date NOT NULL DEFAULT current_timestamp(),
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `streaks`
+--
+
+INSERT INTO `streaks` (`id`, `user_id`, `Timestamp`, `is_deleted`) VALUES
+(6, 1, '2021-04-20', 0),
+(7, 1, '2021-04-21', 0),
+(8, 1, '2021-04-19', 0),
+(10, 1, '2021-04-22', 0),
+(11, 1, '2021-04-22', 0),
+(12, 1, '2021-04-22', 0),
+(13, 1, '2021-04-22', 0),
+(14, 1, '2021-04-22', 0),
+(15, 1, '2021-04-22', 0),
+(16, 1, '2021-04-22', 0),
+(17, 1, '2021-04-22', 0),
+(18, 1, '2021-04-22', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tasks`
 --
 
@@ -556,7 +696,7 @@ CREATE TABLE `tasks` (
   `start_date` date NOT NULL,
   `deadline` date NOT NULL,
   `committee_id` int(11) NOT NULL,
-  `member_id` int(11) DEFAULT NULL,
+  `assigned_by` int(11) DEFAULT NULL,
   `is_finished` tinyint(1) NOT NULL DEFAULT 0,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -565,13 +705,15 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `name`, `description`, `start_date`, `deadline`, `committee_id`, `member_id`, `is_finished`, `is_deleted`) VALUES
-(1, 'ssss', 'ddddddddd', '2021-01-16', '2021-01-22', 1, 1, 1, 0),
+INSERT INTO `tasks` (`id`, `name`, `description`, `start_date`, `deadline`, `committee_id`, `assigned_by`, `is_finished`, `is_deleted`) VALUES
+(1, 'ssss', 'ddddddddde', '2021-01-16', '2021-01-22', 1, NULL, 1, 0),
 (2, 'xxxx', 'eeeeeeeeee', '2021-01-16', '2021-01-22', 1, 1, 1, 0),
-(3, 'xx', 'xxxxxxxxxxxxxxxxxx', '2021-02-17', '2021-02-17', 2, NULL, 0, 0),
-(4, 'xTrimy', 'ddddddddd', '2021-04-09', '2021-04-09', 2, 2, 1, 0),
-(5, 'xTrimy', 'ddddddddd', '2021-04-09', '2021-04-09', 2, 2, 0, 0),
-(6, 'xTrimy', 'ddddddddd', '2021-04-09', '2021-04-09', 2, NULL, 0, 0);
+(3, 'xx', 'xxxxxxxxxxxxxxxxxx', '2021-02-17', '2021-02-17', 2, NULL, 1, 0),
+(4, 'xTrimy', 'ddddddddd1', '2021-04-09', '2021-04-09', 1, NULL, 0, 0),
+(5, 'xTrimy', 'ddddddddd2', '2021-04-09', '2021-04-09', 2, NULL, 1, 0),
+(6, 'xTrimy', 'ddddddddd3', '2021-04-09', '2021-04-09', 2, NULL, 0, 0),
+(7, 'test', '1111', '2021-04-22', '2021-04-30', 1, 1, 1, 0),
+(8, '33333', '3333333333333333333333333', '2021-04-22', '2021-04-24', 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -749,11 +891,25 @@ ALTER TABLE `members`
   ADD KEY `position_id` (`position_id`);
 
 --
+-- Indexes for table `members_tasks`
+--
+ALTER TABLE `members_tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `task_id` (`task_id`),
+  ADD KEY `member_id` (`member_id`);
+
+--
 -- Indexes for table `member_login_tokens`
 --
 ALTER TABLE `member_login_tokens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `member_seen_start_message`
+--
+ALTER TABLE `member_seen_start_message`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `notifications`
@@ -780,12 +936,30 @@ ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `start_messages`
+--
+ALTER TABLE `start_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `start_messages_pages`
+--
+ALTER TABLE `start_messages_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `streaks`
+--
+ALTER TABLE `streaks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `member_id` (`member_id`),
-  ADD KEY `committee_id` (`committee_id`);
+  ADD KEY `committee_id` (`committee_id`),
+  ADD KEY `assigned_by` (`assigned_by`);
 
 --
 -- Indexes for table `trainees`
@@ -876,7 +1050,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT for table `friends`
 --
 ALTER TABLE `friends`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -885,16 +1059,28 @@ ALTER TABLE `members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
 
 --
+-- AUTO_INCREMENT for table `members_tasks`
+--
+ALTER TABLE `members_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `member_login_tokens`
 --
 ALTER TABLE `member_login_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `member_seen_start_message`
+--
+ALTER TABLE `member_seen_start_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `points`
@@ -915,10 +1101,28 @@ ALTER TABLE `schools`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `start_messages`
+--
+ALTER TABLE `start_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `start_messages_pages`
+--
+ALTER TABLE `start_messages_pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `streaks`
+--
+ALTER TABLE `streaks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `trainees`
@@ -974,6 +1178,13 @@ ALTER TABLE `members`
   ADD CONSTRAINT `members_ibfk_2` FOREIGN KEY (`position_id`) REFERENCES `positions` (`id`);
 
 --
+-- Constraints for table `members_tasks`
+--
+ALTER TABLE `members_tasks`
+  ADD CONSTRAINT `members_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`),
+  ADD CONSTRAINT `members_tasks_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`);
+
+--
 -- Constraints for table `member_login_tokens`
 --
 ALTER TABLE `member_login_tokens`
@@ -983,8 +1194,8 @@ ALTER TABLE `member_login_tokens`
 -- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`),
-  ADD CONSTRAINT `tasks_ibfk_2` FOREIGN KEY (`committee_id`) REFERENCES `committees` (`id`);
+  ADD CONSTRAINT `tasks_ibfk_2` FOREIGN KEY (`committee_id`) REFERENCES `committees` (`id`),
+  ADD CONSTRAINT `tasks_ibfk_3` FOREIGN KEY (`assigned_by`) REFERENCES `members` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `trainees`

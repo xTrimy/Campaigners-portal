@@ -3,18 +3,25 @@ include('includes/start.php');
 if (!isset($_GET['id'])) {
   header('Location: ./');
 }
-include('includes/head.php');
-include('includes/header.php');
+
 
 $member_id = $_GET['id'];
 
 //Fetching member's data + there committee's name
 $member = DB::query(
   'SELECT *, m.image as img, m.name as name, c.name as cname 
-                     FROM members m,committees c
-                     WHERE m.id=:id AND m.committee_id = c.id',
+                     FROM members m LEFT JOIN committees c ON m.committee_id=c.id
+                     WHERE m.id=:id',
   array(':id' => $member_id)
-)[0];
+);
+if (!$member) {
+  header('Location:./');
+  exit;
+}
+$member = $member[0];
+
+include('includes/head.php');
+include('includes/header.php');
 ?>
 <div id="main-body">
   <div class="cards">
@@ -27,7 +34,7 @@ $member = DB::query(
             </div>
           </div>
           <h2><?php echo $member['name'] ?>
-            <span class="nickname"><?php echo ($member['nickname']?"(".$member['nickname'].")":"") ?></span>
+            <span class="nickname"><?php echo ($member['nickname'] ? "(" . $member['nickname'] . ")" : "") ?></span>
           </h2>
           <div class="tags">
             <?php
@@ -38,6 +45,11 @@ $member = DB::query(
             }
             ?>
             <div class="item position"><?php echo $Permissions::getUserLevel($member_id); ?></div>
+            <?php if (Streaks::getStreakCountMoreThanTwo($member_id)) { ?>
+              <div title="Daily Streak" class="item streak_count">
+                <?php echo Streaks::streakAlmostDies($member_id); echo Streaks::getStreakCount($member_id); ?>
+              </div>
+            <?php } ?>
             <!-- <div class="item it">IT Specialist</div> -->
             <!-- <div class="item special">Member of the Year 2019-2020</div> -->
           </div>

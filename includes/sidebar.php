@@ -27,6 +27,33 @@
       </div>
     </div>
     <?php
+    if ($Permissions::getAccessLevel() >= 10) {
+    ?>
+      <!-- Admin Settings START -->
+      <div class="item">
+        <div class="arrow"></div>
+        <i class="fas fa-cogs"></i>
+        Admin
+        <div class="dropdown">
+          <div class="item">
+            <i class="fas fa-key"></i>
+            <a href="admin/generate_user_passwords.php">Generate Passwords</a>
+          </div>
+
+          <div class="item">
+            <i class="fas fa-envelope"></i>
+            <a href="admin/send_accounts_mail.php">Send Account Emails</a>
+          </div>
+
+          <div class="item">
+            <i class="fas fa-asterisk"></i>
+            <a href="add_start_message.php">Add Start Message</a>
+          </div>
+        </div>
+      </div>
+      <!-- Admin Settings END -->
+    <?php } ?>
+    <?php
     if ($Permissions::getAccessLevel() >= 9) {
     ?>
       <!-- General Settings START -->
@@ -113,7 +140,7 @@
         $important = "important";
       }
     ?>
-      <div class="item <?php echo $important;?>">
+      <div class="item <?php echo $important; ?>">
         <a href="tshirts.php?id=<?php echo $form_id; ?>"><i class="fas fa-tshirt"></i>
           TShirts Form</a>
       </div>

@@ -1,3 +1,4 @@
+<base href="/club_portal/">
 <?php
 
 function generateStrongPassword($length = 9, $add_dashes = false, $available_sets = 'lud')
@@ -42,7 +43,6 @@ function generateStrongPassword($length = 9, $add_dashes = false, $available_set
 $page_permission = 10;
 include('../includes/start.php');
 include('../includes/head.php');
-$sub = true;
 include('../includes/header.php');
 
 //check if user submited the form
